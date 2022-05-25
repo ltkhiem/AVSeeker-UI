@@ -1,0 +1,1 @@
+export const IMAGE_SERVER = "https://3104-27-77-255-89.ap.ngrok.io"

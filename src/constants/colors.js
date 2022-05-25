@@ -1,0 +1,1 @@
+export const GRID_CONTAINER_COLOR = "#f0f2f5"

@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+// import './App.css';
+import { Layout } from 'antd'
+import HeaderContainer from './containers/headerContainer'
+import ImageGridContainer from './containers/imageGridContainer';
+
+
+const { Header, Content } = Layout;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Layout>
+
+				<Header style={{
+					position: "fixed",
+					zIndex: 1,
+					width: "100%",
+				}}>
+					<HeaderContainer
+						style={{ position: "fixed", zIndex: 1, width: "100%" }}
+					/>
+				</Header>
+
+				<Content style={{
+					padding: "0 10px",
+					marginTop: 70,
+					overflow: "initial",
+				}}>
+					<ImageGridContainer
+						style={{ height: "100%", backgroundColor: "white" }}
+					/>
+
+				</Content>
+
+			</Layout>
+		</div>
+	);
 }
 
 export default App;
