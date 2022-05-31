@@ -7,54 +7,11 @@ import { GRID_CONTAINER_COLOR } from '../constants/colors'
 
 
 function ImageGridContainer(props) {
-    // const [imageSrc, setImageSrc] = useState([
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    //     "https://i.kym-cdn.com/entries/icons/facebook/000/000/091/TrollFace.jpg",
-    // ])
-
 
     return (
         <div style={props.style}>
             <Row
-                gutter={[3, 3]}
+                gutter={[8, 16]}
                 justify="center"
             >
                 {

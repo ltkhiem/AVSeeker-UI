@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './reducers/store';
 import 'antd/dist/antd.css'
+import 'video.js/dist/video-js.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -1,46 +1,74 @@
 import React from 'react'
 import { SendOutlined, SaveOutlined, PlayCircleOutlined } from '@ant-design/icons';
 import { Card, Typography, Image, Space } from 'antd'
-import VideoViewer from './videoViewer';
-import { IMAGE_SERVER } from '../../constants/server';
+import { connect } from 'react-redux'
+import { PLACEHOLDER_IMAGE, ERROR_IMAGE } from '../../constants/image';
+import { setVideoModalVisible, setVideoModalData } from '../../actions/actionVideoViewer'
 
 
 const { Text } = Typography
 
 function ImageCard(props) {
-    const [showVideo, setShowVideo] = React.useState(false);
-
 
     const onPlayButtonClicked = () => {
         console.log(`Play ${props.id}`)
-        setShowVideo(true)
+        // Set VideoViewer data
+        props.dispatch(setVideoModalData(props.id, props.videoId))
+        // Show VideoViewer
+        props.dispatch(setVideoModalVisible(true))
     }
 
     const onSubmitButtonClicked = () => {
-        console.log(`Submit ${props.id}`)
-        onCloseButtonClicked()
-    }
-
-    const onCloseButtonClicked = () => {
-        // In case the user closes the video without submitting it
-        setShowVideo(false)
+        console.log(`Submit ${props.videoViewer.videoId}`)
     }
 
     return (
         <Card
             bordered
-            style={{ width: 200, height: "100%"}}
+            style={{ width: 200, height: "100%" }}
             cover={
                 <div style={{ height: 150, width: "100%" }}>
-                    <Text strong style={{ marginLeft: 60, marginRight: 60 }}>Video {props.id}</Text> 
-                    <Image src={props.sources[0]} />
+                    <Text strong style={{ marginLeft: 60, marginRight: 60 }}>Video {props.id}</Text>
+                    <Image
+                        style={{ width: 200, height: 100 }}
+                        src={props.sources[0]}
+                        fallback={ERROR_IMAGE}
+                        placeholder={
+                            <Image
+                                preview={false}
+                                src={PLACEHOLDER_IMAGE}
+                                width={200}
+                            />
+                        }
+                    />
                     <Space size={0}>
-                        <Image 
-                            style={{ width: "100%", height: "100%" }}
-                            src={props.sources[1]} />
-                        <Image 
-                            style={{ width: "100%", height: "100%" }}
-                            src={props.sources[2]} />
+                        <Image
+                            style={{ width: 100, height: 70 }}
+                            src={props.sources[1]}
+                            fallback={ERROR_IMAGE}
+                            placeholder={
+                                <Image
+                                    preview={false}
+                                    src={PLACEHOLDER_IMAGE}
+                                    width={100}
+                                    height={70}
+                                />
+                            }
+
+                        />
+                        <Image
+                            style={{ width: 100, height: 70 }}
+                            src={props.sources[2]}
+                            fallback={ERROR_IMAGE}
+                            placeholder={
+                                <Image
+                                    preview={false}
+                                    src={PLACEHOLDER_IMAGE}
+                                    width={100}
+                                    height={70}
+                                />
+                            }
+                        />
                     </Space>
                 </div>
             }
@@ -50,14 +78,14 @@ function ImageCard(props) {
                 <PlayCircleOutlined key="play" onClick={onPlayButtonClicked} />
             ]}
         >
-            <VideoViewer 
-                visible={showVideo} 
-                videoURL={`${IMAGE_SERVER}/${props.videoId}`}
-                onOk={onSubmitButtonClicked} 
-                onCancel={onCloseButtonClicked} 
-                videoId={props.videoId} />
         </Card>
     )
 }
 
-export default ImageCard;
+
+const mapStatesToProps = (state) => ({
+
+})
+
+
+export default connect(mapStatesToProps)(ImageCard);

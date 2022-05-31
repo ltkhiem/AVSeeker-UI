@@ -33,6 +33,11 @@ let initialState = {
 
 const imageSourcesReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "SET_IMAGE_SOURCES":
+            return {
+                ...state,
+                imageSources: action.imageSources
+            }
         default:
             return state
     }
