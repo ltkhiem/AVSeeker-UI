@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { FILTER_API, INTERACTIVE_QUESTION_API } from '../../constants/server';
 import { RESPONSE_SUCCESS } from '../../constants/response';
 import { handleRankedListResponse, handleStateTimelineResponse } from '../../helpers/responseHelper';
-import { setImageSources, setStatePointer, setStateTimelineData } from '../../actions/actionFetchDataSources';
+import { setImageSources, setStatePointer, addStateTimelineData } from '../../actions/actionFetchDataSources';
 import { setQueryData } from '../../actions/actionQueryData';
 import { setInteractiveQuestion } from '../../actions/actionInteractiveQuestion';
 
@@ -28,11 +28,9 @@ function FilterBar(props) {
 
 
     const onSearchClick = () => {
-        let stateId = ""
-        let stateListLength = props.stateTimeline.states.length
-        if (stateListLength > 0) {
-            stateId = props.stateTimeline.states[stateListLength - 1].state
-        }
+        const currentState = props.stateTimeline.statePointer.value
+        const stateId = props.stateTimeline.states[currentState].state
+        console.log(stateId)
 
         const params = {
             user_id: props.query.userId,
@@ -63,14 +61,14 @@ function FilterBar(props) {
                 previous: props.stateTimeline.statePointer.value
             }
             const state = handleStateTimelineResponse(data.state_id, method, value)
-            props.dispatch(setStateTimelineData(state))
+            props.dispatch(addStateTimelineData(state))
             props.dispatch(setStatePointer(newStatePointer))
 
             // Update rankedList data
             const rankedList = handleRankedListResponse(data.ranked_list)
             props.dispatch(setImageSources(rankedList))
 
-            // Get new question
+            // // Get new question
             const params = {
                 state_id: data.state_id,
             }

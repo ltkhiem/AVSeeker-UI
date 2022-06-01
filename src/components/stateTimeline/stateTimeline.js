@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { notification, Popover } from 'antd';
 import HorizontalTimeline from 'react-horizontal-timeline';
-import { setStatePointer, setImageSources } from '../../actions/actionFetchDataSources';
+import { setStatePointer, setImageSources, setStateTimeline } from '../../actions/actionFetchDataSources';
 import { LOAD_STATE_TIMELINE_RESULT_API } from '../../constants/server';
 import { RESPONSE_SUCCESS } from '../../constants/response';
 import { fetchData } from '../../actions/fetchData';
@@ -41,7 +41,6 @@ function StateTimeline(props) {
                 indexClick={(index) => {
 
                     const method = props.stateTimeline.states[index].method
-                    let rankedList = []
 
                     if (method !== 'START') {
                         const params = {
@@ -60,21 +59,33 @@ function StateTimeline(props) {
                             const data = response.reply
 
                             // Update ranked list data
-                            rankedList = handleRankedListResponse(data.ranked_list)
+                            const rankedList = handleRankedListResponse(data.ranked_list)
                             props.dispatch(setImageSources(rankedList))
+                            // Update state timeline
+                            props.dispatch(setStatePointer({
+                                value: index,
+                                previous: props.stateTimeline.statePointer.value
+                            }))
                         })
                     }
                     else {
+                        // // Reset timeline
+                        // const newStatePointer = {
+                        //     value: 0,
+                        //     previous: 0
+                        // }
+                        // props.dispatch(setStatePointer(newStatePointer))
+                        // const newState = [{
+                        //     datetime: new Date().toLocaleString(),
+                        //     state: '',
+                        //     method: 'START',
+                        //     query: '',
+                        // }]
+                        // props.dispatch(setStateTimeline(newState))
                         // Update ranked list data
+                        const rankedList = []
                         props.dispatch(setImageSources(rankedList))
                     }
-
-
-                    // Update state timeline
-                    props.dispatch(setStatePointer({
-                        value: index,
-                        previous: props.stateTimeline.statePointer.value
-                    }))
                 }}
                 values={
                     props.stateTimeline.states.map((item) => item.datetime)

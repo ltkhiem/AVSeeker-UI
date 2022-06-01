@@ -8,7 +8,9 @@ import InteractiveQuestionnairContainer from './interactiveQuestionnaireContaine
 function HeaderContainer(props) {
     return (
         <>
-            <Row justify='start' style={props.style} wrap={true}>
+            <Row 
+                gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
+                justify='start' style={props.style} wrap={true}>
                 <Col flex="auto">
                     <Space size={100} align="baseline" wrap={true}>
                         <SearchBar style={{ width: 350, bottom: 8, left: 50 }} />

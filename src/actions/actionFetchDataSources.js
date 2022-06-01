@@ -1,5 +1,5 @@
-export const setStateTimelineData = ({ datetime, state, method, query }) => ({
-    type: 'SET_STATE_TIMELINE_DATA',
+export const addStateTimelineData = ({ datetime, state, method, query }) => ({
+    type: 'ADD_STATE_TIMELINE_DATA',
     datetime: datetime,
     state: state,
     method: method,
@@ -17,4 +17,10 @@ export const setStatePointer = ({ value, previous }) => ({
     type: "SET_STATE_POINTER",
     value: value,
     previous: previous
+})
+
+
+export const setStateTimeline = (states) => ({
+    type: 'SET_STATE_TIMELINE',
+    states: states,
 })

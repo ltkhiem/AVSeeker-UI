@@ -16,7 +16,7 @@ const initialState = {
 
 const stateTimelineReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_STATE_TIMELINE_DATA':
+        case 'ADD_STATE_TIMELINE_DATA':
             return {
                 ...state,
                 states: [
@@ -28,6 +28,11 @@ const stateTimelineReducer = (state = initialState, action) => {
                         query: action.query
                     }
                 ]
+            }
+        case 'SET_STATE_TIMELINE':
+            return {
+                ...state,
+                states: action.states,
             }
         case 'SET_STATE_POINTER':
             return {

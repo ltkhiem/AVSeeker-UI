@@ -3,7 +3,6 @@ import { Row, Col, Image } from 'antd'
 import ImageCard from '../components/imageGrid/imageCard'
 import { connect } from 'react-redux'
 import { IMAGE_SERVER } from '../constants/server'
-import { GRID_CONTAINER_COLOR } from '../constants/colors'
 
 
 function ImageGridContainer(props) {
@@ -13,19 +12,17 @@ function ImageGridContainer(props) {
             <Row
                 gutter={[8, 16]}
                 justify="center"
+                id="row-image-grid"
             >
                 {
                     props.imageSources.imageSources.map((data, index) => {
                         return (
-                            <Col className="gutter-row" key={index}>
-                                {/* <Image 
-                                    width={180}
-                                    height={150}
-                                    src={src} 
-                                /> */}
+                            <Col className="gutter-row" id={`col-${index}`} key={`col-${index}`}>
                                 <ImageCard
+                                    scrollContainer={"row-image-grid"}
+                                    key={`image-card-${index}`}
                                     sources={data.frames.map((frame_id) => `${IMAGE_SERVER}/${data.id}/${frame_id}`)}
-                                    id={data.id}
+                                    frameId={data.id}
                                     videoId={data.video}
                                 />
                             </Col>

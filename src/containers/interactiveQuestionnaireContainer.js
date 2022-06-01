@@ -7,7 +7,7 @@ import { fetchData } from '../actions/fetchData'
 import { RESPONSE_SUCCESS } from '../constants/response'
 import { handleRankedListResponse, handleStateTimelineResponse } from '../helpers/responseHelper'
 import { setImageSources } from '../actions/actionFetchDataSources'
-import { setStateTimelineData, setStatePointer } from '../actions/actionFetchDataSources'
+import { addStateTimelineData, setStatePointer } from '../actions/actionFetchDataSources'
 
 
 const { Text } = Typography
@@ -43,7 +43,7 @@ function InteractiveQuestionnairContainer(props) {
                 previous: props.stateTimeline.statePointer.value
             }
             const state = handleStateTimelineResponse(data.state_id, method, questionQuery)
-            props.dispatch(setStateTimelineData(state))
+            props.dispatch(addStateTimelineData(state))
             props.dispatch(setStatePointer(newStatePointer))
 
             // Update ranked list
