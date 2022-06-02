@@ -10,6 +10,7 @@ export const fetchData = (api, method, params) => {
             return instance.post(api, params)
             .catch(err => {
                 dispatch(fetchDataError(err));
+                return err;
             })
             .then(res => {
                 dispatch(fetchDataSuccess(res.data))
@@ -20,6 +21,7 @@ export const fetchData = (api, method, params) => {
             return instance.get(api)
                 .catch(err => {
                     dispatch(fetchDataError(err));
+                    return err;
                 })
                 .then(res => {
                     dispatch(fetchDataSuccess(res.data));

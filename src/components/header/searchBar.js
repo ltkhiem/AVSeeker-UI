@@ -28,13 +28,12 @@ function SearchBar(props) {
 
     const onSearchClick = () => {
         const params = {
-            user_id: props.query.userId,
+            user_id: props.userConfig.userId,
             state_id: "",
             query: value,
         }
 
         props.dispatch(setQueryData({
-            userId: props.query.userId,
             stateId: "",
             query: value,
         }))
@@ -123,6 +122,7 @@ function SearchBar(props) {
 const mapStatesToProps = (state) => ({
     stateTimeline: state.stateTimeline,
     query: state.query,
+    userConfig: state.userConfig,
 })
 
 export default connect(mapStatesToProps)(SearchBar);

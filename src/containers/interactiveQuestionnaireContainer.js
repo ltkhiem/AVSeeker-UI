@@ -8,6 +8,7 @@ import { RESPONSE_SUCCESS, NO_QUESTION_RESPONSE } from '../constants/response'
 import { handleRankedListResponse, handleStateTimelineResponse } from '../helpers/responseHelper'
 import { setImageSources } from '../actions/actionFetchDataSources'
 import { addStateTimelineData, setStatePointer } from '../actions/actionFetchDataSources'
+import { setQueryData } from '../actions/actionQueryData'
 
 
 const { Text } = Typography
@@ -19,13 +20,20 @@ function InteractiveQuestionnairContainer(props) {
         // Get current state timeline
         const currentState = props.stateTimeline.statePointer.value
         let stateId = props.stateTimeline.states[currentState].state
-        console.log(props.query)
+
         // Form params for query
         const params = {
-            user_id: props.query.userId,
+            user_id: props.userConfig.userId,
             state_id: stateId,
             query: questionQuery,
         }
+
+        // Set query
+        props.dispatch(setQueryData({
+            stateId: stateId,
+            query: questionQuery,
+        }))
+
         // Query to filter 
         props.dispatch(fetchData(FILTER_API, 'POST', params)).then((response) => {
             if (response.result !== RESPONSE_SUCCESS) {
@@ -101,13 +109,13 @@ function InteractiveQuestionnairContainer(props) {
                 </Text>
                 <Button
                     type="primary"
-                    style={{ width: 60, height: 30 }}
+                    style={{ width: 60, height: 35 }}
                     disabled={props.interactiveQuestion.question === '' ? true : false}
                     onClick={onYesButtonClicked}
                 >Yes</Button>
                 <Button
                     type="primary"
-                    style={{ width: 60, height: 30 }}
+                    style={{ width: 60, height: 35 }}
                     disabled={props.interactiveQuestion.question === '' ? true : false}
                     onClick={onNoButtonClicked}
                     danger>No</Button>
@@ -121,6 +129,7 @@ const mapStatesToProps = (state) => ({
     interactiveQuestion: state.interactiveQuestion,
     stateTimeline: state.stateTimeline,
     query: state.query,
+    userConfig: state.userConfig,
 })
 
 

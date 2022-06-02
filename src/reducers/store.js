@@ -6,6 +6,7 @@ import stateTimelineReducer from "./stateTimeline";
 import queryReducer from "./query";
 import videoViewerReducer from "./videoViewer"
 import interactiveQuestionReducer from "./interactiveQuestion";
+import userConfigReducer from "./userConfig";
 
 
 export default configureStore({
@@ -15,6 +16,7 @@ export default configureStore({
         stateTimeline: stateTimelineReducer,
         videoViewer: videoViewerReducer,
         interactiveQuestion: interactiveQuestionReducer,
+        userConfig: userConfigReducer,
     },
     middleware: [
         thunk,

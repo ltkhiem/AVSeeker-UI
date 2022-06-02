@@ -6,3 +6,6 @@ export const LOAD_STATE_TIMELINE_RESULT_API = `${MAIN_SERVER}/api/load_ranked_li
 export const FILTER_API = `${MAIN_SERVER}/api/filter`
 export const SEARCH_API = `${MAIN_SERVER}/api/search`
 export const INTERACTIVE_QUESTION_API = `${MAIN_SERVER}/api/get_active_search_question`
+
+export const DRES_SERVER = "https://vbs.videobrowsing.org/api/v1"
+export const DRES_LOGIN_API = `${DRES_SERVER}/login`
