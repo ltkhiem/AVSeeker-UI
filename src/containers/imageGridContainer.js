@@ -5,55 +5,19 @@ import { connect } from 'react-redux'
 import InfiniteScroll from "react-infinite-scroll-component";
 
 
-
-// const cache = new CellMeasurerCache({
-//     defaultWidth: 200,
-//     minWidth: 75,
-//     fixedHeight: true
-// });
-
-// function cellRenderer({ columnIndex, key, parent, rowIndex, style }) {
-//     return (
-//         <CellMeasurer
-//             cache={cache}
-//             columnIndex={columnIndex}
-//             key={key}
-//             parent={parent}
-//             rowIndex={rowIndex}
-//         >
-//             <ImageCard
-//                 key={`image-card-${key}`}
-
-//             />
-//         </CellMeasurer>
-//     );
-// }
-
-function MyCard({ item }) {
-    return (
-        <ImageCard
-            sources={item.frames.slice(0, 3)}
-            frameId={item.id}
-            videoId={item.video}
-        />
-    )
-}
-
 function ImageGridContainer(props) {
-    const VISIBLE_ITEMS = 150
-    const [visibleSources, setVisibleSources] = useState(props.imageSources.imageSources.slice(0, VISIBLE_ITEMS))
+    const NUM_INITIAL_VISIBLE_ITEMS = 100
+    const NUM_ADDING_ITEMS = 30
+    const [visibleSources, setVisibleSources] = useState(props.imageSources.imageSources.slice(0, NUM_INITIAL_VISIBLE_ITEMS))
     const [hasMore, setHasMore] = useState(false)
 
     const fetchData = () => {
-        console.log(visibleSources)
         setTimeout(() => {
             if (visibleSources.length < props.imageSources.imageSources.length) {
-                console.log(visibleSources.length)
                 const currentLength = visibleSources.length
-                const imageSourcesSubset = props.imageSources.imageSources.slice(currentLength, currentLength + VISIBLE_ITEMS)
+                const imageSourcesSubset = props.imageSources.imageSources.slice(currentLength, currentLength + NUM_ADDING_ITEMS)
                 const newVisibleSources = visibleSources.concat(imageSourcesSubset)
                 setVisibleSources(newVisibleSources)
-                // setVisibleSources(props.imageSources.imageSources.slice(visibleSources.length, visibleSources.length + VISIBLE_ITEMS))
                 setHasMore(true)
             }
             else {
@@ -63,8 +27,12 @@ function ImageGridContainer(props) {
     }
 
     useEffect(() => {
-        fetchData()       
+        // Reset visible list
+        window.scrollTo(0, 0)
+        setVisibleSources(props.imageSources.imageSources.slice(0, NUM_INITIAL_VISIBLE_ITEMS))
+        setHasMore(true)
     }, [props.imageSources.imageSources])
+
 
     return (
         <div style={props.style}>
