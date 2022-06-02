@@ -1,4 +1,4 @@
-export const IMAGE_SERVER = "https://fa2d-171-232-104-158.ap.ngrok.io"
+export const IMAGE_SERVER = "https://a249-116-109-190-109.ap.ngrok.io"
 export const VIDEO_SERVER = "https://08b6-171-232-104-158.ap.ngrok.io"
 
 export const MAIN_SERVER = "http://localhost:8000"

@@ -30,7 +30,6 @@ function FilterBar(props) {
     const onSearchClick = () => {
         const currentState = props.stateTimeline.statePointer.value
         const stateId = props.stateTimeline.states[currentState].state
-        console.log(stateId)
 
         const params = {
             user_id: props.query.userId,

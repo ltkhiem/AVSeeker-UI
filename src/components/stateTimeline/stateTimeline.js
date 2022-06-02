@@ -69,19 +69,19 @@ function StateTimeline(props) {
                         })
                     }
                     else {
-                        // // Reset timeline
-                        // const newStatePointer = {
-                        //     value: 0,
-                        //     previous: 0
-                        // }
-                        // props.dispatch(setStatePointer(newStatePointer))
-                        // const newState = [{
-                        //     datetime: new Date().toLocaleString(),
-                        //     state: '',
-                        //     method: 'START',
-                        //     query: '',
-                        // }]
-                        // props.dispatch(setStateTimeline(newState))
+                        // Reset timeline
+                        const newStatePointer = {
+                            value: 0,
+                            previous: 0
+                        }
+                        props.dispatch(setStatePointer(newStatePointer))
+                        const newState = [{
+                            datetime: new Date().toLocaleString(),
+                            state: '',
+                            method: 'START',
+                            query: '',
+                        }]
+                        props.dispatch(setStateTimeline(newState))
                         // Update ranked list data
                         const rankedList = []
                         props.dispatch(setImageSources(rankedList))
