@@ -24,3 +24,4 @@ export const setStateTimeline = (states) => ({
     type: 'SET_STATE_TIMELINE',
     states: states,
 })
+

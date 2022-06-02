@@ -24,14 +24,14 @@ function ImageCard(props) {
     }
 
     return (
-        // <LazyLoad
-        //     height={200}
-        //     once
-        //     overflow={true}
-        //     offset={1000}
-        //     scrollContainer={props.scrollContainer}
-        //     debounce={false} 
-        // >
+        <LazyLoad
+            height={200}
+            once
+            overflow={true}
+            offset={1000}
+            scrollContainer={props.scrollContainer}
+            debounce={false} 
+        >
             <Card
                 bordered
                 style={{ width: 200, height: "100%" }}
@@ -90,7 +90,7 @@ function ImageCard(props) {
                 ]}
             >
             </Card>
-        // </LazyLoad>
+        </LazyLoad>
     )
 }
 

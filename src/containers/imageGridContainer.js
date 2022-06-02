@@ -30,13 +30,16 @@ function ImageGridContainer(props) {
         // Reset visible list
         window.scrollTo(0, 0)
         setVisibleSources(props.imageSources.imageSources.slice(0, NUM_INITIAL_VISIBLE_ITEMS))
-        setHasMore(true)
+        if (props.imageSources.imageSources.length > 0) {
+            setHasMore(true)
+        }
     }, [props.imageSources.imageSources])
 
 
     return (
         <div style={props.style}>
             <InfiniteScroll
+                id={'image-grid-container'}
                 dataLength={visibleSources.length}
                 next={fetchData}
                 hasMore={hasMore}
@@ -59,7 +62,8 @@ function ImageGridContainer(props) {
                                 return (
                                     <Col className="gutter-row" id={`col-${index}`} key={`col-${index}`}>
                                         <ImageCard
-                                            scrollContainer={"row-image-grid"}
+                                            scrollContainer={"image-grid-container"}
+                                            overflow
                                             key={`image-card-${index}`}
                                             sources={data.frames.slice(0, 3)}
                                             frameId={data.id}

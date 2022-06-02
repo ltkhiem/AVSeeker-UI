@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { FILTER_API, INTERACTIVE_QUESTION_API } from '../../constants/server';
 import { RESPONSE_SUCCESS } from '../../constants/response';
 import { handleRankedListResponse, handleStateTimelineResponse } from '../../helpers/responseHelper';
-import { setImageSources, setStatePointer, addStateTimelineData } from '../../actions/actionFetchDataSources';
+import { setImageSources, setStatePointer, addStateTimelineData, setStateTimeline } from '../../actions/actionFetchDataSources';
 import { setQueryData } from '../../actions/actionQueryData';
 import { setInteractiveQuestion } from '../../actions/actionInteractiveQuestion';
 
@@ -53,15 +53,31 @@ function FilterBar(props) {
 
             const data = response.reply
             const method = "FILTER"
-            
+
             // Update state timeline data
-            const newStatePointer = {
-                value: props.stateTimeline.states.length,
-                previous: props.stateTimeline.statePointer.value
-            }
             const state = handleStateTimelineResponse(data.state_id, method, value)
-            props.dispatch(addStateTimelineData(state))
-            props.dispatch(setStatePointer(newStatePointer))
+            if (props.stateTimeline.statePointer.value === props.stateTimeline.states.length - 1) {
+                // In case the pointer is still at the last state of the timeline
+                const newStatePointer = {
+                    value: props.stateTimeline.states.length,
+                    previous: props.stateTimeline.statePointer.value
+                }
+                props.dispatch(setStatePointer(newStatePointer))
+                props.dispatch(addStateTimelineData(state))
+            }
+            else {
+                // In case the pointer was changed to a state other than the last state of the timeline
+                const newStatePointer = {
+                    value: props.stateTimeline.statePointer.value + 1,
+                    previous: props.stateTimeline.statePointer.value
+                }
+                const states = [{
+                    ...props.stateTimeline.slice(0, props.stateTimeline.statePointer.value),
+                    state
+                }]
+                props.dispatch(setStatePointer(newStatePointer))
+                props.dispatch(setStateTimeline(states))
+            }
 
             // Update rankedList data
             const rankedList = handleRankedListResponse(data.ranked_list)
