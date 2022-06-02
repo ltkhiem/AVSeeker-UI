@@ -6,6 +6,7 @@ import { LOAD_STATE_TIMELINE_RESULT_API } from '../../constants/server';
 import { RESPONSE_SUCCESS } from '../../constants/response';
 import { fetchData } from '../../actions/fetchData';
 import { handleRankedListResponse } from '../../helpers/responseHelper';
+import { setInteractiveQuestion } from '../../actions/actionInteractiveQuestion';
 
 
 function StateTimeline(props) {
@@ -85,6 +86,8 @@ function StateTimeline(props) {
                         // Update ranked list data
                         const rankedList = []
                         props.dispatch(setImageSources(rankedList))
+                        // Reset question in active search
+                        props.dispatch(setInteractiveQuestion(""))
                     }
                 }}
                 values={

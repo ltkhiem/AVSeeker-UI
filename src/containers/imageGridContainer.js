@@ -33,6 +33,9 @@ function ImageGridContainer(props) {
         if (props.imageSources.imageSources.length > 0) {
             setHasMore(true)
         }
+        else {
+            setHasMore(false)
+        }
     }, [props.imageSources.imageSources])
 
 

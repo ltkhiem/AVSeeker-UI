@@ -1,5 +1,5 @@
-export const IMAGE_SERVER = "https://a249-116-109-190-109.ap.ngrok.io"
-export const VIDEO_SERVER = "https://08b6-171-232-104-158.ap.ngrok.io"
+export const IMAGE_SERVER = "https://9052-116-109-183-78.ap.ngrok.io"
+export const VIDEO_SERVER = "https://0996-116-109-183-78.ap.ngrok.io"
 
 export const MAIN_SERVER = "http://localhost:8000"
 export const LOAD_STATE_TIMELINE_RESULT_API = `${MAIN_SERVER}/api/load_ranked_list`

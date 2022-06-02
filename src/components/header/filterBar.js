@@ -3,7 +3,7 @@ import { AutoComplete, Input, notification } from 'antd';
 import { fetchData } from '../../actions/fetchData';
 import { connect } from 'react-redux'
 import { FILTER_API, INTERACTIVE_QUESTION_API } from '../../constants/server';
-import { RESPONSE_SUCCESS } from '../../constants/response';
+import { NO_QUESTION_RESPONSE, RESPONSE_SUCCESS } from '../../constants/response';
 import { handleRankedListResponse, handleStateTimelineResponse } from '../../helpers/responseHelper';
 import { setImageSources, setStatePointer, addStateTimelineData, setStateTimeline } from '../../actions/actionFetchDataSources';
 import { setQueryData } from '../../actions/actionQueryData';
@@ -71,10 +71,9 @@ function FilterBar(props) {
                     value: props.stateTimeline.statePointer.value + 1,
                     previous: props.stateTimeline.statePointer.value
                 }
-                const states = [{
-                    ...props.stateTimeline.slice(0, props.stateTimeline.statePointer.value),
-                    state
-                }]
+                const states = [
+                    ...props.stateTimeline.states.slice(0, props.stateTimeline.statePointer.value + 1),
+                    state]
                 props.dispatch(setStatePointer(newStatePointer))
                 props.dispatch(setStateTimeline(states))
             }
@@ -95,8 +94,13 @@ function FilterBar(props) {
                     })
                 }
                 const data = response.reply
-                const newQuestion = data.question.split('/').pop()
-                props.dispatch(setInteractiveQuestion(newQuestion))
+                if (data.question === NO_QUESTION_RESPONSE) {
+                    props.dispatch(setInteractiveQuestion(""))
+                }
+                else {
+                    const newQuestion = data.question.split('/').pop()
+                    props.dispatch(setInteractiveQuestion(newQuestion))
+                }
             })
         })
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { FILTER_API, INTERACTIVE_QUESTION_API } from '../constants/server'
 import { setInteractiveChoice, setInteractiveQuestion } from '../actions/actionInteractiveQuestion'
 import { fetchData } from '../actions/fetchData'
-import { RESPONSE_SUCCESS } from '../constants/response'
+import { RESPONSE_SUCCESS, NO_QUESTION_RESPONSE } from '../constants/response'
 import { handleRankedListResponse, handleStateTimelineResponse } from '../helpers/responseHelper'
 import { setImageSources } from '../actions/actionFetchDataSources'
 import { addStateTimelineData, setStatePointer } from '../actions/actionFetchDataSources'
@@ -62,8 +62,14 @@ function InteractiveQuestionnairContainer(props) {
                     })
                 }
                 const data = response.reply
-                const newQuestion =  data.question.split('/').pop()
-                props.dispatch(setInteractiveQuestion(newQuestion))
+                if (data.question === NO_QUESTION_RESPONSE) {
+                    // No question
+                    props.dispatch(setInteractiveQuestion(""))
+                }
+                else {
+                    const newQuestion = data.question.split('/').pop()
+                    props.dispatch(setInteractiveQuestion(newQuestion))
+                }
             })
         })
     }

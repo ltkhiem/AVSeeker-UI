@@ -3,7 +3,7 @@ import { AutoComplete, Input, notification } from 'antd';
 import { fetchData } from '../../actions/fetchData';
 import { connect } from 'react-redux'
 import { SEARCH_API, INTERACTIVE_QUESTION_API } from '../../constants/server';
-import { RESPONSE_SUCCESS } from '../../constants/response';
+import { NO_QUESTION_RESPONSE, RESPONSE_SUCCESS } from '../../constants/response';
 import { handleRankedListResponse, handleStateTimelineResponse } from '../../helpers/responseHelper';
 import { setImageSources, setStateTimeline, setStatePointer } from '../../actions/actionFetchDataSources';
 import { setQueryData } from '../../actions/actionQueryData';
@@ -82,8 +82,13 @@ function SearchBar(props) {
                     })
                 }
                 const data = response.reply
-                const newQuestion = data.question.split('/').pop()
-                props.dispatch(setInteractiveQuestion(newQuestion))
+                if (data.question === NO_QUESTION_RESPONSE) {
+                    props.dispatch(setInteractiveQuestion(""))
+                }
+                else {
+                    const newQuestion = data.question.split('/').pop()
+                    props.dispatch(setInteractiveQuestion(newQuestion))
+                }
             })
         })
 
