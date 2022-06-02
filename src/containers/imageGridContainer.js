@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Image } from 'antd'
+import { Row, Col, Spin } from 'antd'
 import ImageCard from '../components/imageGrid/imageCard'
 import { connect } from 'react-redux'
 import InfiniteScroll from "react-infinite-scroll-component";

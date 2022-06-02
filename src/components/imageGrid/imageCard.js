@@ -1,5 +1,5 @@
 import React from 'react'
-import { SendOutlined, SaveOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { SendOutlined, UnorderedListOutlined, PlayCircleOutlined } from '@ant-design/icons';
 import { Card, Typography, Image, Space } from 'antd'
 import { connect } from 'react-redux'
 import { PLACEHOLDER_IMAGE, ERROR_IMAGE } from '../../constants/image';
@@ -12,11 +12,14 @@ const { Text } = Typography
 function ImageCard(props) {
 
     const onPlayButtonClicked = () => {
-        console.log(`Play ${props.frameId}`)
         // Set VideoViewer data
         props.dispatch(setVideoModalData(props.frameId, props.videoId))
         // Show VideoViewer
         props.dispatch(setVideoModalVisible(true))
+    }
+
+    const onShowImagesButtonClicked = () => {
+        console.log("Show Images")
     }
 
     const onSubmitButtonClicked = () => {
@@ -85,7 +88,7 @@ function ImageCard(props) {
                 }
                 actions={[
                     <SendOutlined key="send" onClick={onSubmitButtonClicked} />,
-                    <SaveOutlined key="save" />,
+                    <UnorderedListOutlined key="images" onClick={onShowImagesButtonClicked}/>,
                     <PlayCircleOutlined key="play" onClick={onPlayButtonClicked} />
                 ]}
             >
