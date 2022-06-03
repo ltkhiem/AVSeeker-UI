@@ -24,6 +24,6 @@ export default configureStore({
     },
     middleware: [
         thunk,
-        logger,
+        // logger,
     ]
 })
