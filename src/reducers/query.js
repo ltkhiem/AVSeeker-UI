@@ -1,6 +1,7 @@
 const initialState = {
     stateId: '',
     query: '',
+    isLoadingSearch: true,
 }
 
 
@@ -11,6 +12,11 @@ const queryReducer = (state = initialState, action) => {
                 ...state,
                 stateId: action.stateId,
                 query: action.query,
+            }
+        case 'SET_IS_LOADING_SEARCH':
+            return {
+                ...state,
+                isLoadingSearch: action.isLoadingSearch,
             }
         default:
             return state

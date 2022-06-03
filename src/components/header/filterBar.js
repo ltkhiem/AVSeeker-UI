@@ -6,7 +6,7 @@ import { FILTER_API, INTERACTIVE_QUESTION_API } from '../../constants/server';
 import { NO_QUESTION_RESPONSE, RESPONSE_SUCCESS } from '../../constants/response';
 import { handleRankedListResponse, handleStateTimelineResponse } from '../../helpers/responseHelper';
 import { setImageSources, setStatePointer, addStateTimelineData, setStateTimeline } from '../../actions/actionFetchDataSources';
-import { setQueryData } from '../../actions/actionQueryData';
+import { setIsLoadingSearch, setQueryData } from '../../actions/actionQueryData';
 import { setInteractiveQuestion } from '../../actions/actionInteractiveQuestion';
 
 
@@ -41,6 +41,8 @@ function FilterBar(props) {
             stateId: stateId,
             query: value,
         }))
+
+        props.dispatch(setIsLoadingSearch(true))
 
         props.dispatch(fetchData(FILTER_API, 'POST', params)).then((response) => {
             if (response.result !== RESPONSE_SUCCESS) {
@@ -81,7 +83,7 @@ function FilterBar(props) {
             const rankedList = handleRankedListResponse(data.ranked_list)
             props.dispatch(setImageSources(rankedList))
 
-            // // Get new question
+            // Get new question
             const params = {
                 state_id: data.state_id,
             }

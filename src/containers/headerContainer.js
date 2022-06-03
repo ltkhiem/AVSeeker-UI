@@ -65,7 +65,7 @@ function HeaderContainer(props) {
                         <FilterBar style={{ width: 350, bottom: 8, right: -50 }} />
                     </Space>
                 </Col>
-                <Col flex="380px">
+                <Col flex="400px">
                     <InteractiveQuestionnairContainer />
                 </Col>
                 <Col flex="100px">

@@ -1,6 +1,6 @@
 import React from 'react'
 import { SendOutlined, UnorderedListOutlined, PlayCircleOutlined } from '@ant-design/icons';
-import { Card, Typography, Image, Space } from 'antd'
+import { Card, Typography, Image, Space, Spin } from 'antd'
 import { connect } from 'react-redux'
 import { PLACEHOLDER_IMAGE, ERROR_IMAGE } from '../../constants/image';
 import { setVideoModalVisible, setVideoModalData } from '../../actions/actionVideoViewer'
@@ -33,7 +33,7 @@ function ImageCard(props) {
             overflow={true}
             offset={1000}
             scrollContainer={props.scrollContainer}
-            debounce={false} 
+            debounce={false}
         >
             <Card
                 bordered
@@ -46,49 +46,27 @@ function ImageCard(props) {
                             style={{ width: 200, height: 100 }}
                             src={props.sources[0]}
                             fallback={ERROR_IMAGE}
-                            placeholder={
-                                <Image
-                                    preview={false}
-                                    src={ERROR_IMAGE}
-                                    width={200}
-                                    height={100}
-                                />
-                            }
+                            placeholder={true}
                         />
                         <Space size={0}>
                             <Image
                                 style={{ width: 100, height: 70 }}
                                 src={props.sources[1]}
                                 fallback={ERROR_IMAGE}
-                                placeholder={
-                                    <Image
-                                        preview={false}
-                                        src={ERROR_IMAGE}
-                                        width={100}
-                                        height={70}
-                                    />
-                                }
-
+                                placeholder={true}
                             />
                             <Image
                                 style={{ width: 100, height: 70 }}
                                 src={props.sources[2]}
                                 fallback={ERROR_IMAGE}
-                                placeholder={
-                                    <Image
-                                        preview={false}
-                                        src={ERROR_IMAGE}
-                                        width={100}
-                                        height={70}
-                                    />
-                                }
+                                placeholder={true}
                             />
                         </Space>
                     </div>
                 }
                 actions={[
                     <SendOutlined key="send" onClick={onSubmitButtonClicked} />,
-                    <UnorderedListOutlined key="images" onClick={onShowImagesButtonClicked}/>,
+                    <UnorderedListOutlined key="images" onClick={onShowImagesButtonClicked} />,
                     <PlayCircleOutlined key="play" onClick={onPlayButtonClicked} />
                 ]}
             >

@@ -9,3 +9,4 @@ export const INTERACTIVE_QUESTION_API = `${MAIN_SERVER}/api/get_active_search_qu
 
 export const DRES_SERVER = "https://vbs.videobrowsing.org/api/v1"
 export const DRES_LOGIN_API = `${DRES_SERVER}/login`
+export const DRES_SUBMIT_API = `${DRES_SERVER}/submit`

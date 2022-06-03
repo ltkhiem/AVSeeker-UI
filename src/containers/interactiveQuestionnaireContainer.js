@@ -8,7 +8,7 @@ import { RESPONSE_SUCCESS, NO_QUESTION_RESPONSE } from '../constants/response'
 import { handleRankedListResponse, handleStateTimelineResponse } from '../helpers/responseHelper'
 import { setImageSources } from '../actions/actionFetchDataSources'
 import { addStateTimelineData, setStatePointer } from '../actions/actionFetchDataSources'
-import { setQueryData } from '../actions/actionQueryData'
+import { setIsLoadingSearch, setQueryData } from '../actions/actionQueryData'
 
 
 const { Text } = Typography
@@ -33,6 +33,7 @@ function InteractiveQuestionnairContainer(props) {
             stateId: stateId,
             query: questionQuery,
         }))
+        props.dispatch(setIsLoadingSearch(true))
 
         // Query to filter 
         props.dispatch(fetchData(FILTER_API, 'POST', params)).then((response) => {
@@ -81,6 +82,7 @@ function InteractiveQuestionnairContainer(props) {
             })
         })
     }
+    
 
     const onYesButtonClicked = () => {
         props.dispatch(setInteractiveChoice("YES"))

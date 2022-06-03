@@ -3,6 +3,8 @@ import { Row, Col, Spin } from 'antd'
 import ImageCard from '../components/imageGrid/imageCard'
 import { connect } from 'react-redux'
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Grid } from '@mui/material'
+import { setIsLoadingSearch } from '../actions/actionQueryData';
 
 
 function ImageGridContainer(props) {
@@ -28,7 +30,6 @@ function ImageGridContainer(props) {
 
     useEffect(() => {
         // Reset visible list
-        window.scrollTo(0, 0)
         setVisibleSources(props.imageSources.imageSources.slice(0, NUM_INITIAL_VISIBLE_ITEMS))
         if (props.imageSources.imageSources.length > 0) {
             setHasMore(true)
@@ -36,34 +37,44 @@ function ImageGridContainer(props) {
         else {
             setHasMore(false)
         }
+        props.dispatch(setIsLoadingSearch(false))
     }, [props.imageSources.imageSources])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [props.query.isLoadingSearch])
 
 
     return (
-        <div style={props.style}>
-            <InfiniteScroll
-                id={'image-grid-container'}
-                dataLength={visibleSources.length}
-                next={fetchData}
-                hasMore={hasMore}
-                scrollThreshold={0.9}
-                loader={<h4 style={{ textAlign: "center" }}>Loading...</h4>}
-                endMessage={
-                    <p style={{ textAlign: "center" }}>
-                        <b>Yay! You have seen it all</b>
-                    </p>
-                }
-            >
-                {
-                    <Row
-                        gutter={[8, 16]}
-                        justify="center"
-                        id="row-image-grid"
-                    >
+        <div style={props.style} id='scrollable-div'>
+            {
+                props.query.isLoadingSearch ? 
+                <Spin 
+                    tip="Loading..."
+                    size="large"
+                    style={{
+                        position: 'fixed',
+                        right: "50%"
+                    }}
+                /> :
+                <InfiniteScroll
+                    id={'image-grid-container'}
+                    dataLength={visibleSources.length}
+                    next={fetchData}
+                    hasMore={hasMore}
+                    scrollThreshold={0.9}
+                    loader={<h4 style={{ textAlign: "center", marginTop: 5 }}>Loading...</h4>}
+                    endMessage={
+                        <p style={{ textAlign: "center", marginTop: 5 }}>
+                            <b>Yay! You have seen it all</b>
+                        </p>
+                    }
+                >
+                    <Grid container spacing={1} justifyContent="center">
                         {
                             visibleSources.map((data, index) => {
                                 return (
-                                    <Col className="gutter-row" id={`col-${index}`} key={`col-${index}`}>
+                                    <Grid item id={`col-${index}`} key={`col-${index}`}>
                                         <ImageCard
                                             scrollContainer={"image-grid-container"}
                                             overflow
@@ -72,45 +83,21 @@ function ImageGridContainer(props) {
                                             frameId={data.id}
                                             videoId={data.video}
                                         />
-                                    </Col>
+                                    </Grid>
                                 )
                             })
                         }
-                    </Row>
-                }
-            </InfiniteScroll>
+                    </Grid>
+                </InfiniteScroll>
+            }
         </div>
     )
-    // return (
-    //     <div style={props.style}>
-    //         <Row
-    //             gutter={[8, 16]}
-    //             justify="center"
-    //             id="row-image-grid"
-    //         >
-    //             {
-    //                 props.imageSources.imageSources.map((data, index) => {
-    //                     return (
-    //                         <Col className="gutter-row" id={`col-${index}`} key={`col-${index}`}>
-    //                             <ImageCard
-    //                                 scrollContainer={"row-image-grid"}
-    //                                 key={`image-card-${index}`}
-    //                                 sources={data.frames.slice(0, 3)}
-    //                                 frameId={data.id}
-    //                                 videoId={data.video}
-    //                             />
-    //                         </Col>
-    //                     )
-    //                 })
-    //             }
-    //         </Row>
-    //     </div >
-    // )
 }
 
 
 const mapStatesToProps = (state) => ({
-    imageSources: state.imageSources
+    imageSources: state.imageSources,
+    query: state.query,
 })
 
 

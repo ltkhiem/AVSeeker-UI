@@ -7,6 +7,7 @@ import { RESPONSE_SUCCESS } from '../../constants/response';
 import { fetchData } from '../../actions/fetchData';
 import { handleRankedListResponse } from '../../helpers/responseHelper';
 import { setInteractiveQuestion } from '../../actions/actionInteractiveQuestion';
+import { setIsLoadingSearch } from '../../actions/actionQueryData';
 
 
 function StateTimeline(props) {
@@ -47,6 +48,7 @@ function StateTimeline(props) {
                         const params = {
                             state_id: props.stateTimeline.states[index].state,
                         }
+                        props.dispatch(setIsLoadingSearch(true))
 
                         props.dispatch(fetchData(LOAD_STATE_TIMELINE_RESULT_API, 'POST', params)).then((response) => {
                             // Handle error response
