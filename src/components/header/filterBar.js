@@ -93,6 +93,7 @@ function FilterBar(props) {
                         message: `Interactive Question: ${response.result}`,
                         placement: 'bottomRight',
                     })
+                    return
                 }
                 const data = response.reply
                 if (data.question === NO_QUESTION_RESPONSE) {

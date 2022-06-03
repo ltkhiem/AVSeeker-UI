@@ -42,6 +42,7 @@ function InteractiveQuestionnairContainer(props) {
                     message: `Active Search: ${response.result}`,
                     placement: 'bottomRight',
                 })
+                return
             }
             const data = response.reply
             const method = "ACTIVE_SEARCH"
@@ -69,6 +70,7 @@ function InteractiveQuestionnairContainer(props) {
                         message: `Interactive Question: ${response.result}`,
                         placement: 'bottomRight',
                     })
+                    return
                 }
                 const data = response.reply
                 if (data.question === NO_QUESTION_RESPONSE) {

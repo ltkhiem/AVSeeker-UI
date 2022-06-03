@@ -46,6 +46,7 @@ function SearchBar(props) {
                     message: `Filter: ${response.result}`,
                     placement: 'bottomRight',
                 })
+                return
             }
 
             const data = response.reply

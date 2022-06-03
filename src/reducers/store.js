@@ -7,6 +7,8 @@ import queryReducer from "./query";
 import videoViewerReducer from "./videoViewer"
 import interactiveQuestionReducer from "./interactiveQuestion";
 import userConfigReducer from "./userConfig";
+import imageListModalReducer from "./imageListModal";
+import keyframesRankedListReducer from "./keyframesRankedListReducer";
 
 
 export default configureStore({
@@ -17,6 +19,8 @@ export default configureStore({
         videoViewer: videoViewerReducer,
         interactiveQuestion: interactiveQuestionReducer,
         userConfig: userConfigReducer,
+        imageListModal: imageListModalReducer,
+        keyframesRankedList: keyframesRankedListReducer,
     },
     middleware: [
         thunk,

@@ -1,4 +1,5 @@
 const initialState = {
+    videoId: '',
     visible: false,
     framesList: [],
 }
@@ -6,7 +7,7 @@ const initialState = {
 
 const imageListModalReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_FRAMES_LIST':
+        case 'SET_MODAL_FRAMES_LIST':
             return {
                 ...state,
                 framesList: action.framesList,
@@ -15,6 +16,11 @@ const imageListModalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 visible: action.visible,
+            }
+        case "SET_IMAGE_LIST_MODAL_VIDEO_ID":
+            return {
+                ...state,
+                videoId: action.videoId,
             }
         default:
             return state

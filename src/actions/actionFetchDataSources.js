@@ -26,13 +26,4 @@ export const setStateTimeline = (states) => ({
 })
 
 
-export const setFramesList = (framesList) => ({
-    type: "SET_FRAMES_LIST",
-    framesList: framesList,
-})
 
-
-export const setImageListModalVisible = (visible) => ({
-    type: "SET_IMAGE_LIST_MODAL_VISIBLE",
-    visible: visible,
-})

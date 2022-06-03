@@ -35,9 +35,8 @@ function VideoViewer(props) {
     // Dispose the Video.js player when the functional component unmounts
     React.useEffect(() => {
         const player = playerRef.current;
-
         return () => {
-            if (player) {
+            if (player && props.visible === false) {
                 player.dispose();
                 playerRef.current = null;
             }

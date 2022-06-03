@@ -1,10 +1,16 @@
 import React from 'react'
-import { SendOutlined, UnorderedListOutlined, PlayCircleOutlined } from '@ant-design/icons';
-import { Card, Typography, Image, Space, Spin } from 'antd'
+import { SendOutlined, UnorderedListOutlined, PlayCircleOutlined, NotificationOutlined, KeyOutlined } from '@ant-design/icons';
+import { Card, Typography, Image, Space, Spin, notification } from 'antd'
 import { connect } from 'react-redux'
 import { PLACEHOLDER_IMAGE, ERROR_IMAGE } from '../../constants/image';
 import { setVideoModalVisible, setVideoModalData } from '../../actions/actionVideoViewer'
 import LazyLoad from 'react-lazyload'
+import { setImageListModalVisible, setImageListVideoId, setModalFramesList } from '../../actions/actionImageListModal';
+import { fetchData } from '../../actions/fetchData';
+import { GET_SHOT_KEYFRAMES_API } from '../../constants/server';
+import { RESPONSE_SUCCESS } from '../../constants/response';
+import { handleKeyframesResponse } from '../../helpers/responseHelper';
+import { setKeyframesRankedListModalVisible, setKeyframesRankedListVideoId, setModalKeyframesRankedList } from '../../actions/actionKeyframesRankedListModal';
 
 
 const { Text } = Typography
@@ -13,17 +19,40 @@ function ImageCard(props) {
 
     const onPlayButtonClicked = () => {
         // Set VideoViewer data
-        props.dispatch(setVideoModalData(props.frameId, props.videoId))
+        props.dispatch(setVideoModalData(props.videoId, props.videoSrc))
         // Show VideoViewer
         props.dispatch(setVideoModalVisible(true))
     }
 
     const onShowImagesButtonClicked = () => {
-        console.log("Show Images")
+        const params = {
+            shot_id: props.videoId
+        }
+        props.dispatch(fetchData(GET_SHOT_KEYFRAMES_API, 'POST', params)).then((response) => {
+            if (response.result !== RESPONSE_SUCCESS) {
+                notification.error({
+                    message: `Get keyframes: ${response.result}`,
+                    placement: 'bottomRight',
+                })
+                return
+            }
+            const data = response.reply
+            const keyframesList = handleKeyframesResponse(data.keyframes_list, props.videoId)
+            props.dispatch(setModalFramesList(keyframesList))
+            props.dispatch(setImageListVideoId(props.videoId))
+            props.dispatch(setImageListModalVisible(true))
+        })
     }
 
-    const onSubmitButtonClicked = () => {
+    const onSubmitButtonClicked = (index) => {
         console.log(`Submit ${props.videoViewer.videoId}`)
+        // console.log(`Submit ${props.sources[index]}`)
+    }
+
+    const onShowKeyframesRankedList = () => {
+        props.dispatch(setModalKeyframesRankedList(props.sources))
+        props.dispatch(setKeyframesRankedListVideoId(props.videoId))
+        props.dispatch(setKeyframesRankedListModalVisible(true))
     }
 
     return (
@@ -41,31 +70,26 @@ function ImageCard(props) {
                 // style={props.style}
                 cover={
                     <div style={{ height: 150, width: "100%" }}>
-                        <Text strong style={{ marginLeft: 60, marginRight: 60 }}>Video {props.frameId}</Text>
-                        <Image
+                        <Text strong style={{ marginLeft: 60, marginRight: 60 }}>Video {props.videoId}</Text>
+                        <img
                             style={{ width: 200, height: 100 }}
                             src={props.sources[0]}
-                            fallback={ERROR_IMAGE}
-                            placeholder={true}
                         />
                         <Space size={0}>
-                            <Image
+                            <img
                                 style={{ width: 100, height: 70 }}
-                                src={props.sources[1]}
-                                fallback={ERROR_IMAGE}
-                                placeholder={true}
+                                src={props.sources[1] !== undefined ? props.sources[1] : ERROR_IMAGE}
                             />
-                            <Image
+                            <img
                                 style={{ width: 100, height: 70 }}
-                                src={props.sources[2]}
-                                fallback={ERROR_IMAGE}
-                                placeholder={true}
+                                src={props.sources[2] !== undefined ? props.sources[2] : ERROR_IMAGE}
                             />
                         </Space>
                     </div>
                 }
                 actions={[
-                    <SendOutlined key="send" onClick={onSubmitButtonClicked} />,
+                    <KeyOutlined key="key" onClick={onShowKeyframesRankedList} />,
+                    // <SendOutlined key="send" onClick={onSubmitButtonClicked} />,
                     <UnorderedListOutlined key="images" onClick={onShowImagesButtonClicked} />,
                     <PlayCircleOutlined key="play" onClick={onPlayButtonClicked} />
                 ]}

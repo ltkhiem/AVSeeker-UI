@@ -9,12 +9,16 @@ import { connect } from 'react-redux'
 import { setVideoModalVisible } from './actions/actionVideoViewer'
 import { VIDEO_SERVER } from './constants/server';
 import { setSessionId, setUserId } from './actions/actionUserConfig';
+import ImageListModal from './components/imageGrid/imageListModal';
+import { setImageListModalVisible } from './actions/actionImageListModal';
+import { setKeyframesRankedListModalVisible } from './actions/actionKeyframesRankedListModal';
+import { getNativeSelectUtilityClasses } from '@mui/material';
 
 
 const { Header, Content } = Layout;
 
 function App(props) {
-	const playerRef = useRef(null);
+	let playerRef = useRef(null);
 	const [initCheckLocalStorageData, setInitCheckLocalStorageData] = useState(true);
 
 	useEffect(() => {
@@ -45,14 +49,30 @@ function App(props) {
 	};
 
 
-	const onSubmitButtonClicked = () => {
-		console.log(`Submit ${props.videoViewer.videoId}`)
-		onCloseButtonClicked()
+	const onVideoViewSubmitButtonClicked = () => {
+		onVideoViewCloseButtonClicked()
 	}
 
-	const onCloseButtonClicked = () => {
+	const onVideoViewCloseButtonClicked = () => {
 		// In case the user closes the video without submitting it
 		props.dispatch(setVideoModalVisible(false))
+
+	}
+
+	const onImageListModalSubmitButtonClicked = () => {
+		onImageListModalCloseButtonClicked()
+	}
+
+	const onImageListModalCloseButtonClicked = () => {
+		props.dispatch(setImageListModalVisible(false))
+	}
+
+	const onKeyframesRankedListSubmitButtonClicked = () => {
+		onKeyframesRankedListCloseButtonClicked()
+	}
+
+	const onKeyframesRankedListCloseButtonClicked = () => {
+		props.dispatch(setKeyframesRankedListModalVisible(false))
 	}
 
 	return (
@@ -83,22 +103,40 @@ function App(props) {
 							<VideoViewer
 								videoId={props.videoViewer.videoId}
 								visible={props.videoViewer.visible}
-								onOk={onSubmitButtonClicked}
-								onCancel={onCloseButtonClicked}
+								onReady={handlePlayerReady}
+								onOk={onVideoViewSubmitButtonClicked}
+								onCancel={onVideoViewCloseButtonClicked}
 								options={{
+									preload: 'auto',
 									autoplay: true,
 									controls: true,
 									responsive: true,
 									fluid: true,
+									playbackRates: [0.5, 1, 2, 4],
 									sources: {
-										src: `${VIDEO_SERVER}/${props.videoViewer.videoSrc}`,
+										src: `${props.videoViewer.videoSrc}`,
 										type: 'video/mp4'
 									}
 								}}
 							/>
 							: <div></div>
 					}
-
+					{/* // Show all the keyframes of the video */}
+					<ImageListModal
+						visible={props.imageListModal.visible}
+						videoId={props.imageListModal.videoId}
+						frames={props.imageListModal.framesList}
+						onCancel={onImageListModalCloseButtonClicked}
+						onOk={onImageListModalSubmitButtonClicked}
+					/>
+					{/* // Show keyframes in the ranked list returned from the search and filter API */}
+					<ImageListModal
+						visible={props.keyframesRankedList.visible}
+						videoId={props.keyframesRankedList.videoId}
+						frames={props.keyframesRankedList.framesList}
+						onCancel={onKeyframesRankedListCloseButtonClicked}
+						onOk={onKeyframesRankedListSubmitButtonClicked}
+					/>
 				</Content>
 
 			</Layout>
@@ -109,6 +147,8 @@ function App(props) {
 
 const mapStatesToProps = (state) => ({
 	videoViewer: state.videoViewer,
+	imageListModal: state.imageListModal,
+	keyframesRankedList: state.keyframesRankedList,
 })
 
 export default connect(mapStatesToProps)(App);

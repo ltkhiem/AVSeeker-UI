@@ -21,3 +21,8 @@ export const handleRankedListResponse = (rankedList) => {
         }
     })
 }
+
+
+export const handleKeyframesResponse = (keyframes, shotId) => {
+    return keyframes.map((item) => `${IMAGE_SERVER}/${shotId}/${item}.webp`)
+}

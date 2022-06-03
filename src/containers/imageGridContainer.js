@@ -10,27 +10,23 @@ import { setIsLoadingSearch } from '../actions/actionQueryData';
 function ImageGridContainer(props) {
     const NUM_INITIAL_VISIBLE_ITEMS = 100
     const NUM_ADDING_ITEMS = 30
-    const [visibleSources, setVisibleSources] = useState(props.imageSources.imageSources.slice(0, NUM_INITIAL_VISIBLE_ITEMS))
+    const [currentLength, setCurrentLength] = useState(0)
     const [hasMore, setHasMore] = useState(false)
 
     const fetchData = () => {
         setTimeout(() => {
-            if (visibleSources.length < props.imageSources.imageSources.length) {
-                const currentLength = visibleSources.length
-                const imageSourcesSubset = props.imageSources.imageSources.slice(currentLength, currentLength + NUM_ADDING_ITEMS)
-                const newVisibleSources = visibleSources.concat(imageSourcesSubset)
-                setVisibleSources(newVisibleSources)
+            if (currentLength < props.imageSources.imageSources.length) {
+                const newCurrentLength = currentLength + NUM_ADDING_ITEMS
+                setCurrentLength(newCurrentLength)
                 setHasMore(true)
             }
-            else {
-                setHasMore(false)
-            }
+            else setHasMore(false)
         }, 500)
     }
 
     useEffect(() => {
         // Reset visible list
-        setVisibleSources(props.imageSources.imageSources.slice(0, NUM_INITIAL_VISIBLE_ITEMS))
+        setCurrentLength(NUM_INITIAL_VISIBLE_ITEMS)
         if (props.imageSources.imageSources.length > 0) {
             setHasMore(true)
         }
@@ -59,7 +55,8 @@ function ImageGridContainer(props) {
                 /> :
                 <InfiniteScroll
                     id={'image-grid-container'}
-                    dataLength={visibleSources.length}
+                    // dataLength={visibleSources.length}
+                    dataLength={currentLength}
                     next={fetchData}
                     hasMore={hasMore}
                     scrollThreshold={0.9}
@@ -72,7 +69,7 @@ function ImageGridContainer(props) {
                 >
                     <Grid container spacing={1} justifyContent="center">
                         {
-                            visibleSources.map((data, index) => {
+                            props.imageSources.imageSources.slice(0, currentLength).map((data, index) => {
                                 return (
                                     <Grid item id={`col-${index}`} key={`col-${index}`}>
                                         <ImageCard
@@ -80,8 +77,8 @@ function ImageGridContainer(props) {
                                             overflow
                                             key={`image-card-${index}`}
                                             sources={data.frames.slice(0, 3)}
-                                            frameId={data.id}
-                                            videoId={data.video}
+                                            videoId={data.id}
+                                            videoSrc={data.video}
                                         />
                                     </Grid>
                                 )
