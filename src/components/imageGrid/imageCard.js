@@ -73,16 +73,16 @@ function ImageCard(props) {
                     <div style={{ height: 150, width: "100%" }}>
                         <Text strong style={{ marginLeft: 60, marginRight: 60 }}>Video {props.videoId}</Text>
                         <Image
-                            style={{ width: 200, height: 100 }}
+                            style={{ width: 200, height: 100, transform: "scale(1)" }}
                             src={props.sources[0]}
                         />
                         <Space size={0}>
                             <Image
-                                style={{ width: 100, height: 70 }}
+                                style={{ width: 100, height: 70, transform: "scale(1)" }}
                                 src={props.sources[1] !== undefined ? props.sources[1] : ERROR_IMAGE}
                             />
                             <Image
-                                style={{ width: 100, height: 70 }}
+                                style={{ width: 100, height: 70, transform: "scale(1)" }}
                                 src={props.sources[2] !== undefined ? props.sources[2] : ERROR_IMAGE}
                             />
                         </Space>

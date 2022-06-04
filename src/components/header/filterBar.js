@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { AutoComplete, Input, notification } from 'antd';
 import { fetchData } from '../../actions/fetchData';
 import { connect } from 'react-redux'
@@ -16,6 +16,7 @@ const mockVal = (str, repeat = 1) => ({
 
 
 function FilterBar(props) {
+    const filterRef = useRef(null)
     const [value, setValue] = useState('')
     const [options, setOptions] = useState([])
 
@@ -28,6 +29,8 @@ function FilterBar(props) {
 
 
     const onSearchClick = () => {
+        filterRef.current.blur()
+
         const currentState = props.stateTimeline.statePointer.value
         const stateId = props.stateTimeline.states[currentState].state
 
