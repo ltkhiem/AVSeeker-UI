@@ -12,7 +12,8 @@ import { setSessionId, setUserId } from './actions/actionUserConfig';
 import ImageListModal from './components/imageGrid/imageListModal';
 import { setImageListModalVisible } from './actions/actionImageListModal';
 import { setKeyframesRankedListModalVisible } from './actions/actionKeyframesRankedListModal';
-import { getNativeSelectUtilityClasses } from '@mui/material';
+import { PRESS_S, PRESS_X } from './constants/interaction'
+import { setIsPressX, setIsPressS } from './actions/actionGeneral'
 
 
 const { Header, Content } = Layout;
@@ -34,6 +35,7 @@ function App(props) {
 			}
 		}
 	})
+
 
 	const handlePlayerReady = (player) => {
 		playerRef.current = player;
@@ -126,6 +128,7 @@ function App(props) {
 						visible={props.imageListModal.visible}
 						videoId={props.imageListModal.videoId}
 						frames={props.imageListModal.framesList}
+						title={`All keyframes of the video ${props.imageListModal.videoId}`}
 						onCancel={onImageListModalCloseButtonClicked}
 						onOk={onImageListModalSubmitButtonClicked}
 					/>
@@ -134,6 +137,7 @@ function App(props) {
 						visible={props.keyframesRankedList.visible}
 						videoId={props.keyframesRankedList.videoId}
 						frames={props.keyframesRankedList.framesList}
+						title={`Keyframes in the ranked list of the video ${props.keyframesRankedList.videoId}`}
 						onCancel={onKeyframesRankedListCloseButtonClicked}
 						onOk={onKeyframesRankedListSubmitButtonClicked}
 					/>

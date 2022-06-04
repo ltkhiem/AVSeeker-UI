@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { AutoComplete, Input, notification } from 'antd';
 import { fetchData } from '../../actions/fetchData';
 import { connect } from 'react-redux'
@@ -16,6 +16,7 @@ const mockVal = (str, repeat = 1) => ({
 
 
 function SearchBar(props) {
+    const searchRef = useRef(null);
     const [value, setValue] = useState('')
     const [options, setOptions] = useState([])
 
@@ -27,6 +28,8 @@ function SearchBar(props) {
     }
 
     const onSearchClick = () => {
+        searchRef.current.blur() // Prevent autofocus
+
         const params = {
             user_id: props.userConfig.userId,
             state_id: "",
@@ -114,6 +117,7 @@ function SearchBar(props) {
             onSelect={onSelect}
             onSearch={onSearch}
             onChange={onChange}
+            ref={searchRef}
         >
             <Input.Search size="large" placeholder="Search" enterButton
                 onSearch={onSearchClick}

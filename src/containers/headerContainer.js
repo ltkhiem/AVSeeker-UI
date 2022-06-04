@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import FilterBar from '../components/header/filterBar';
 import SearchBar from '../components/header/searchBar'
-import { Row, Col, Space, Button, notification } from 'antd'
-import { SettingOutlined } from '@ant-design/icons';
+import { Row, Col, Space, Button, notification, Popover } from 'antd'
+import { SettingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import InteractiveQuestionnairContainer from './interactiveQuestionnaireContainer';
 import ConfigModal from '../components/header/configModal';
 import { fetchData } from '../actions/fetchData';
@@ -11,11 +11,31 @@ import { setSessionInfo, setUserId } from '../actions/actionUserConfig';
 import { connect } from 'react-redux'
 
 
+
+
+
 function HeaderContainer(props) {
     const [configModalVisible, setConfigModalVisible] = useState(false);
 
     const onCancelConfigModalButtonClicked = () => {
         setConfigModalVisible(false);
+    }
+
+    const popOverComponent = () => {
+        return (
+            <Space>
+                <Col>
+                    <Row
+                        justify='space-between'>
+                        <b>X + Hover</b> &emsp; Zoom
+                    </Row>
+                    <Row
+                        justify='space-between'>
+                        <b>S + Left Click</b> &emsp; Submit
+                    </Row>
+                </Col>
+            </Space>
+        )
     }
 
     const onUserConfigSubmit = (values) => {
@@ -34,7 +54,7 @@ function HeaderContainer(props) {
                     message: 'Login Success!',
                     placement: 'bottomRight',
                 })
-                
+
                 // Set session info to the store
                 props.dispatch(setSessionInfo(response))
                 props.dispatch(setUserId(avseekerUsername))
@@ -42,7 +62,7 @@ function HeaderContainer(props) {
                 // Add session info to the local storage
                 localStorage.setItem('sessionId', response.sessionId)
                 localStorage.setItem('userId', avseekerUsername)
-           }
+            }
             else {
                 notification.error({
                     message: `Login Failed!`,
@@ -65,24 +85,43 @@ function HeaderContainer(props) {
                         <FilterBar style={{ width: 350, bottom: 8, right: -50 }} />
                     </Space>
                 </Col>
-                <Col flex="400px">
+                <Col flex="420px">
                     <InteractiveQuestionnairContainer />
                 </Col>
-                <Col flex="100px">
-                    <Button
-                        type="ghost"
-                        icon={<SettingOutlined />}
-                        style={{
-                            height: 30,
-                            color: "white",
-                            border: "none",
-                        }}
-                        onClick={() => { setConfigModalVisible(true) }}
-                    />
+                <Col flex="130px">
+                    <Space wrap={true} align="baseline" size={4}>
+                        <Popover
+                            title={'User Interaction Information'}
+                            content={popOverComponent}
+                            placement="bottomRight"
+                        >
+                            <Button
+                                type="ghost"
+                                icon={<QuestionCircleOutlined />}
+                                style={{
+                                    height: 30,
+                                    color: "white",
+                                    border: "none",
+                                    paddingRight: 15
+                                }}
+                            >
+                            </Button>
+                        </Popover>
+                        <Button
+                            type="ghost"
+                            icon={<SettingOutlined />}
+                            style={{
+                                height: 30,
+                                color: "white",
+                                border: "none",
+                            }}
+                            onClick={() => { setConfigModalVisible(true) }}
+                        />
+                    </Space>
                 </Col>
             </Row>
             {/* <-- ConfigModal -- > */}
-            <ConfigModal 
+            <ConfigModal
                 visible={configModalVisible}
                 onCancel={onCancelConfigModalButtonClicked}
                 onUserConfigSubmit={onUserConfigSubmit}

@@ -1,8 +1,8 @@
 import React from 'react'
 import { SendOutlined, UnorderedListOutlined, PlayCircleOutlined, NotificationOutlined, KeyOutlined } from '@ant-design/icons';
-import { Card, Typography, Image, Space, Spin, notification } from 'antd'
+import { Card, Typography, Space, notification } from 'antd'
 import { connect } from 'react-redux'
-import { PLACEHOLDER_IMAGE, ERROR_IMAGE } from '../../constants/image';
+import { ERROR_IMAGE } from '../../constants/image';
 import { setVideoModalVisible, setVideoModalData } from '../../actions/actionVideoViewer'
 import LazyLoad from 'react-lazyload'
 import { setImageListModalVisible, setImageListVideoId, setModalFramesList } from '../../actions/actionImageListModal';
@@ -11,6 +11,7 @@ import { GET_SHOT_KEYFRAMES_API } from '../../constants/server';
 import { RESPONSE_SUCCESS } from '../../constants/response';
 import { handleKeyframesResponse } from '../../helpers/responseHelper';
 import { setKeyframesRankedListModalVisible, setKeyframesRankedListVideoId, setModalKeyframesRankedList } from '../../actions/actionKeyframesRankedListModal';
+import Image from './Image/image'
 
 
 const { Text } = Typography
@@ -71,16 +72,16 @@ function ImageCard(props) {
                 cover={
                     <div style={{ height: 150, width: "100%" }}>
                         <Text strong style={{ marginLeft: 60, marginRight: 60 }}>Video {props.videoId}</Text>
-                        <img
+                        <Image
                             style={{ width: 200, height: 100 }}
                             src={props.sources[0]}
                         />
                         <Space size={0}>
-                            <img
+                            <Image
                                 style={{ width: 100, height: 70 }}
                                 src={props.sources[1] !== undefined ? props.sources[1] : ERROR_IMAGE}
                             />
-                            <img
+                            <Image
                                 style={{ width: 100, height: 70 }}
                                 src={props.sources[2] !== undefined ? props.sources[2] : ERROR_IMAGE}
                             />

@@ -21,7 +21,8 @@ function StateTimeline(props) {
         }}>
             <HorizontalTimeline
                 styles={{
-                    background: "#f8f8f8",
+                    // background: "#f8f8f8",
+                    background: "white",
                     foreground: "#1A79AD",
                     outline: "#dfdfdf",
                 }}

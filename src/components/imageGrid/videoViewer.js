@@ -47,7 +47,7 @@ function VideoViewer(props) {
         <Modal
             centered
             width={690}
-            title={`Playing ${props.videoId}`}
+            title={`Playing the video ${props.videoId}`}
             visible={props.visible}
             onOk={props.onOk}
             onCancel={props.onCancel}
