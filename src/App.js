@@ -14,6 +14,7 @@ import { setImageListModalVisible } from './actions/actionImageListModal';
 import { setKeyframesRankedListModalVisible } from './actions/actionKeyframesRankedListModal';
 import { PRESS_S, PRESS_X } from './constants/interaction'
 import { setIsPressX, setIsPressS } from './actions/actionGeneral'
+import EventHandler from './components/eventHandler';
 
 
 const { Header, Content } = Layout;
@@ -79,6 +80,7 @@ function App(props) {
 
 	return (
 		<div className="App">
+			<EventHandler />
 			<Layout>
 
 				<Header style={{

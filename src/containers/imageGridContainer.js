@@ -16,48 +16,8 @@ function ImageGridContainer(props) {
     const [currentLength, setCurrentLength] = useState(0)
     const [hasMore, setHasMore] = useState(false)
 
-    const handleImageItemKeyDown = (event) => {
-        // Press x
-        // if (event.repeat === true) return
-        // const isPressX = useSelector(state => state.general.isPressX)
-        if (event.which === PRESS_X && props.general.isPressX === false) {
-            props.dispatch(setIsPressX(true))
-        }
-        // Press s
-        if (event.which === PRESS_S && props.general.isPressS === false) {
-            props.dispatch(setIsPressS(true))
-        }
-    }
-
-    const handleImageItemKeyUp = (event) => {
-        // Press x
-        if (event.which === PRESS_X && props.general.isPressX === true) {
-            props.dispatch(setIsPressX(false))
-        }
-        // Press s
-        if (event.which === PRESS_S && props.general.isPressS === true) {
-            props.dispatch(setIsPressS(false))
-        }
-
-    }
-
-    useEffect(() => {
-        document.addEventListener('keydown', handleImageItemKeyDown)
-        document.addEventListener('keyup', handleImageItemKeyUp)
-        return () => {
-            document.removeEventListener('keydown', handleImageItemKeyDown)
-            document.removeEventListener('keyup', handleImageItemKeyUp)
-        }
-    }, [props.general])
-
-
-    useEffect(() => {
-
-    }, [props.general.isPressX])
-
 
     const fetchData = () => {
-        console.log(props.query)
         setTimeout(() => {
             if (currentLength < props.imageSources.imageSources.length) {
                 const newCurrentLength = currentLength + NUM_ADDING_ITEMS
@@ -139,7 +99,6 @@ function ImageGridContainer(props) {
 const mapStatesToProps = (state) => ({
     imageSources: state.imageSources,
     query: state.query,
-    general: state.general,
 })
 
 

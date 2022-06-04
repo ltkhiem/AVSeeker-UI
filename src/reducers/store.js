@@ -9,7 +9,6 @@ import interactiveQuestionReducer from "./interactiveQuestion";
 import userConfigReducer from "./userConfig";
 import imageListModalReducer from "./imageListModal";
 import keyframesRankedListReducer from "./keyframesRankedListReducer";
-import submissionReducer from "./submissionReducer";
 import generalReducer from "./general";
 
 
@@ -23,11 +22,10 @@ export default configureStore({
         userConfig: userConfigReducer,
         imageListModal: imageListModalReducer,
         keyframesRankedList: keyframesRankedListReducer,
-        submission: submissionReducer,
         general: generalReducer,
     },
     middleware: [
         thunk,
-        logger,
+        // logger,
     ]
 })

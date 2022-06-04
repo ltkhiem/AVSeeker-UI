@@ -11,7 +11,7 @@ import { GET_SHOT_KEYFRAMES_API } from '../../constants/server';
 import { RESPONSE_SUCCESS } from '../../constants/response';
 import { handleKeyframesResponse } from '../../helpers/responseHelper';
 import { setKeyframesRankedListModalVisible, setKeyframesRankedListVideoId, setModalKeyframesRankedList } from '../../actions/actionKeyframesRankedListModal';
-import Image from './Image/image'
+import Image from './image'
 
 
 const { Text } = Typography

@@ -129,6 +129,7 @@ function FilterBar(props) {
             onSelect={onSelect}
             onSearch={onSearch}
             onChange={onChange}
+            ref={filterRef}
         >
             <Input.Search size="large" placeholder="Filter"
                 enterButton
