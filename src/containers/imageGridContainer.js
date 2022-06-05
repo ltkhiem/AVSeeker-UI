@@ -31,12 +31,13 @@ function ImageGridContainer(props) {
     useEffect(() => {
         // Reset visible list
         setCurrentLength(NUM_INITIAL_VISIBLE_ITEMS)
-        if (props.imageSources.imageSources.length > 0) {
+        if (props.imageSources.imageSources.length > NUM_INITIAL_VISIBLE_ITEMS) {
             setHasMore(true)
         }
         else {
             setHasMore(false)
         }
+
         props.dispatch(setIsLoadingSearch(false))
     }, [props.imageSources.imageSources])
 
