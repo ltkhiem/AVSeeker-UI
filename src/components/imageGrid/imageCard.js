@@ -71,7 +71,7 @@ function ImageCard(props) {
                 // style={props.style}
                 cover={
                     <div style={{ height: 150, width: "100%" }}>
-                        <Text strong style={{ marginLeft: 60, marginRight: 60 }}>Video {props.videoId}</Text>
+                        <Text strong style={{ marginLeft: 60, marginRight: 50 }}>Video {props.videoId}</Text>
                         <Image
                             style={{ width: 200, height: 100, transform: "scale(1)" }}
                             src={props.sources[0]}
