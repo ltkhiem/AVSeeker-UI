@@ -2,6 +2,10 @@
 
 The introduction of the AVSeeker System and its user interface can be found in this [link](https://www.youtube.com/watch?v=y0bnZ0Ahsmg&t=8s).
 
+## Install packages and dependencies
+
+### `npm install --legacy-peer-deps`
+
 ## Debugging mode
 
 In the project directory, you can run:
