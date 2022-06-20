@@ -21,12 +21,12 @@ function HeaderContainer(props) {
     }
 
     const onUserConfigSubmit = (values) => {
-        const vbsUsername = values.vbs_username
+        const lscUsername = values.lsc_username
         const password = values.password
-        const avseekerUsername = values.avseeker_username
+        const lifeseekerUsername = values.lifeseeker_username
 
         const params = {
-            'username': vbsUsername,
+            'username': lscUsername,
             'password': password,
         }
 
@@ -39,11 +39,11 @@ function HeaderContainer(props) {
 
                 // Set session info to the store
                 props.dispatch(setSessionInfo(response))
-                props.dispatch(setUserId(avseekerUsername))
+                props.dispatch(setUserId(lifeseekerUsername))
 
                 // Add session info to the local storage
                 localStorage.setItem('sessionId', response.sessionId)
-                localStorage.setItem('userId', avseekerUsername)
+                localStorage.setItem('userId', lifeseekerUsername)
             }
             else {
                 notification.error({
@@ -74,7 +74,7 @@ function HeaderContainer(props) {
                 <Col flex="420px">
                     <InteractiveQuestionnairContainer />
                 </Col>
-                
+
                 {/* Setting & Utilities */}
                 <Col flex="165px">
                     <Space wrap={true} align="baseline" size={4}>
