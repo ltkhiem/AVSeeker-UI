@@ -102,6 +102,7 @@ function App(props) {
 					<ImageGridContainer
 						style={{ height: "100%", backgroundColor: "white" }}
 					/>
+					{/* Video Viewer */}
 					{
 						props.videoViewer.visible ?
 							<VideoViewer

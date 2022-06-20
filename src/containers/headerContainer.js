@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import FilterBar from '../components/header/filterBar';
 import SearchBar from '../components/header/searchBar'
-import { Row, Col, Space, Button, notification, Popover } from 'antd'
-import { SettingOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { Row, Col, Space, notification, Button } from 'antd'
 import InteractiveQuestionnairContainer from './interactiveQuestionnaireContainer';
 import ConfigModal from '../components/header/configModal';
 import { fetchData } from '../actions/fetchData';
 import { DRES_LOGIN_API } from '../constants/server';
 import { setSessionInfo, setUserId } from '../actions/actionUserConfig';
 import { connect } from 'react-redux'
-
-
-
+import { SettingOutlined } from '@ant-design/icons';
+import PopOverHelper from '../components/header/popOverHelper';
+import VisualSimilaritySearchButton from '../components/header/visualSimilaritySearchButton';
 
 
 function HeaderContainer(props) {
@@ -19,23 +18,6 @@ function HeaderContainer(props) {
 
     const onCancelConfigModalButtonClicked = () => {
         setConfigModalVisible(false);
-    }
-
-    const popOverComponent = () => {
-        return (
-            <Space>
-                <Col>
-                    <Row
-                        justify='space-between'>
-                        <b>X + Hover</b> &emsp; Zoom
-                    </Row>
-                    <Row
-                        justify='space-between'>
-                        <b>S + Left Click</b> &emsp; Submit
-                    </Row>
-                </Col>
-            </Space>
-        )
     }
 
     const onUserConfigSubmit = (values) => {
@@ -79,34 +61,29 @@ function HeaderContainer(props) {
             <Row
                 gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}
                 justify='start' style={props.style} wrap={true}>
+
+                {/* Search and Filter box */}
                 <Col flex="auto">
                     <Space size={100} align="baseline" wrap={true}>
                         <SearchBar style={{ width: 350, bottom: 8, left: 50 }} />
                         <FilterBar style={{ width: 350, bottom: 8, right: -50 }} />
                     </Space>
                 </Col>
+
+                {/* Active Search */}
                 <Col flex="420px">
                     <InteractiveQuestionnairContainer />
                 </Col>
-                <Col flex="130px">
+                
+                {/* Setting & Utilities */}
+                <Col flex="165px">
                     <Space wrap={true} align="baseline" size={4}>
-                        <Popover
-                            title={'User Interaction Information'}
-                            content={popOverComponent}
-                            placement="bottomRight"
-                        >
-                            <Button
-                                type="ghost"
-                                icon={<QuestionCircleOutlined />}
-                                style={{
-                                    height: 30,
-                                    color: "white",
-                                    border: "none",
-                                    paddingRight: 15
-                                }}
-                            >
-                            </Button>
-                        </Popover>
+                        <VisualSimilaritySearchButton />
+
+                        {/* Popover Helper */}
+                        <PopOverHelper />
+
+                        {/* Login Button  */}
                         <Button
                             type="ghost"
                             icon={<SettingOutlined />}
@@ -120,6 +97,7 @@ function HeaderContainer(props) {
                     </Space>
                 </Col>
             </Row>
+
             {/* <-- ConfigModal -- > */}
             <ConfigModal
                 visible={configModalVisible}

@@ -36,9 +36,9 @@ function ConfigModal(props) {
                 }}
             >
                 <Form.Item
-                    name="vbs_username"
-                    label="VBS Username"
-                    placeholder="VBS Username"
+                    name="lsc_username"
+                    label="LSC Username"
+                    placeholder="LSC Username"
                     rules={[
                         {
                             required: true,
@@ -64,13 +64,13 @@ function ConfigModal(props) {
                     />
                 </Form.Item>
                 <Form.Item
-                    name="avseeker_username"
-                    label="AVSeeker Username"
-                    placeholder="AVSeeker Username"
+                    name="lifeseeker_username"
+                    label="LifeSeeker Username"
+                    placeholder="LifeSeeker Username"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input the avseeker username'
+                            message: 'Please input the LifeSeeker username'
                         }
                     ]}
                 >

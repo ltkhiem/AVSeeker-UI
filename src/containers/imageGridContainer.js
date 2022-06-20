@@ -19,6 +19,7 @@ function ImageGridContainer(props) {
 
     const fetchData = () => {
         setTimeout(() => {
+            // Fetch more image data if there is more data to fetch
             if (currentLength < props.imageSources.imageSources.length) {
                 const newCurrentLength = currentLength + NUM_ADDING_ITEMS
                 setCurrentLength(newCurrentLength)
@@ -32,9 +33,11 @@ function ImageGridContainer(props) {
         // Reset visible list
         setCurrentLength(NUM_INITIAL_VISIBLE_ITEMS)
         if (props.imageSources.imageSources.length > NUM_INITIAL_VISIBLE_ITEMS) {
+            // Set has more to true if there are more images than the initial visible list
             setHasMore(true)
         }
         else {
+            // Set has more to false if there are less images than the initial visible list
             setHasMore(false)
         }
 
@@ -42,6 +45,7 @@ function ImageGridContainer(props) {
     }, [props.imageSources.imageSources])
 
     useEffect(() => {
+        // Scroll to the top of the page after reset the visible list
         window.scrollTo(0, 0)
     }, [props.query.isLoadingSearch])
 
