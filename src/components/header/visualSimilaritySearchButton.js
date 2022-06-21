@@ -5,7 +5,7 @@ import { Button, Popover } from "antd"
 function VisualSimilaritySearchButton(props) {
 
     const doSimilaritySearch = () => {
-
+        
     }
 
     return (

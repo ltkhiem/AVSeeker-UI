@@ -15,6 +15,7 @@ import { setKeyframesRankedListModalVisible } from './actions/actionKeyframesRan
 import { PRESS_S, PRESS_X } from './constants/interaction'
 import { setIsPressX, setIsPressS } from './actions/actionGeneral'
 import EventHandler from './components/eventHandler';
+import VisualSimilaritySearchContainer from './containers/visualSimilaritySearchContainer';
 
 
 const { Header, Content } = Layout;
@@ -99,9 +100,16 @@ function App(props) {
 					overflow: "initial",
 				}}>
 					<StateTimeline />
-					<ImageGridContainer
-						style={{ height: "100%", backgroundColor: "white" }}
-					/>
+					{
+						props.visualSimilaritySources.visualSimilaritySourcesVisible ?
+							<VisualSimilaritySearchContainer
+								style={{ height: "100%", 
+								backgroundColor: "white" }}
+							/> :
+							<ImageGridContainer
+								style={{ height: "100%", backgroundColor: "white" }}
+							/>
+					}
 					{/* Video Viewer */}
 					{
 						props.videoViewer.visible ?
@@ -156,6 +164,7 @@ const mapStatesToProps = (state) => ({
 	videoViewer: state.videoViewer,
 	imageListModal: state.imageListModal,
 	keyframesRankedList: state.keyframesRankedList,
+	visualSimilaritySources: state.visualSimilaritySources,
 })
 
 export default connect(mapStatesToProps)(App);

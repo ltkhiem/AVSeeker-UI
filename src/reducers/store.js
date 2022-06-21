@@ -9,6 +9,7 @@ import interactiveQuestionReducer from "./interactiveQuestion";
 import userConfigReducer from "./userConfig";
 import imageListModalReducer from "./imageListModal";
 import keyframesRankedListReducer from "./keyframesRankedListReducer";
+import visualSimilaritySourcesReducer from "./visualSimilaritySources";
 import generalReducer from "./general";
 
 
@@ -22,10 +23,11 @@ export default configureStore({
         userConfig: userConfigReducer,
         imageListModal: imageListModalReducer,
         keyframesRankedList: keyframesRankedListReducer,
+        visualSimilaritySources: visualSimilaritySourcesReducer,
         general: generalReducer,
     },
     middleware: [
         thunk,
-        // logger,
+        logger,
     ]
 })
