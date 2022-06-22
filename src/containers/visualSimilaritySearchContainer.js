@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Grid } from '@mui/material'
-import Image from '../components/imageGrid/image'
 import { setIsLoadingSearch } from '../actions/actionQueryData'
-import { Spin, Typography } from 'antd'
+import { Spin } from 'antd'
+import MomentItem from '../components/imageGrid/momentItem';
 
-
-const { Text } = Typography
 
 function VisualSimilaritySearchContainer(props) {
     const NUM_INITIAL_VISIBLE_ITEMS = 100
@@ -81,22 +79,22 @@ function VisualSimilaritySearchContainer(props) {
                                 props.visualSimilaritySources.vsImageSources.slice(0, currentLength).map((data, index) => {
                                     return (
                                         <Grid item id={`col-${index}`} key={`col-${index}`}>
-                                            <div style={{
-                                                height: 180,
-                                                width: 210,
-                                                border: "1px solid #e8e8e8",
-                                                paddingLeft: 5,
-                                                paddingRight: 5,
-                                            }}>
-                                                <Text strong style={{ marginLeft: 25, marginRight: 25 }}>{data.id}</Text>
-                                                <Image
-                                                    style={{
-                                                        height: 150,
-                                                        width: 200,
-                                                    }}
-                                                    src={data.path}
-                                                />
-                                            </div>
+                                            <MomentItem
+                                                style={{
+                                                    height: 180,
+                                                    width: 210,
+                                                    border: "1px solid #e8e8e8",
+                                                    paddingLeft: 5,
+                                                    paddingRight: 5,
+                                                    textAlign: "center",
+                                                }}
+                                                imageStyle={{
+                                                    height: 150,
+                                                    width: 200,
+                                                }}
+                                                imgSrc={data.path}
+                                                id={data.id}
+                                            />
                                         </Grid>
                                     )
                                 })
@@ -104,7 +102,7 @@ function VisualSimilaritySearchContainer(props) {
                         </Grid>
                     </InfiniteScroll>
             }
-        </div>
+        </div >
     )
 }
 
