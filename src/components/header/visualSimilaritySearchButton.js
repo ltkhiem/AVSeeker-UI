@@ -11,7 +11,7 @@ function VisualSimilaritySearchButton(props) {
     return (
         <Popover
             title="Visual Similarity Search"
-            content="Choose positive and negative images to search for similar images"
+            content="Click to do Visual Similarity Search"
             placement="bottomRight"
         >
             <Button

@@ -10,6 +10,7 @@ import userConfigReducer from "./userConfig";
 import imageListModalReducer from "./imageListModal";
 import keyframesRankedListReducer from "./keyframesRankedListReducer";
 import visualSimilaritySourcesReducer from "./visualSimilaritySources";
+import visualSimilarityQueryReducer from "./visualSimilarityQuery";
 import generalReducer from "./general";
 
 
@@ -17,6 +18,7 @@ export default configureStore({
     reducer: {
         imageSources: imageSourcesReducer,
         query: queryReducer,
+        visualSimilarityQuery: visualSimilarityQueryReducer,
         stateTimeline: stateTimelineReducer,
         videoViewer: videoViewerReducer,
         interactiveQuestion: interactiveQuestionReducer,

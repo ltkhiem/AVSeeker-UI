@@ -1,34 +1,29 @@
 let initialState = {
-    imageSources: [],
-    // imageSources: [
-    //     {
-    //         id: "00001",
-    //         video: "V3C1/videos/00001/00001.mp4",
-    //         frames: [
-    //             "shot00001_100_RKF.png", // First is the key-frame 
-    //             "shot00001_101_RKF.png", // Second is the second frame in the ranked list
-    //             "shot00001_102_RKF.png", // Third frame in the ranked list
-    //         ],
-    //     },
-    //     {
-    //         id: "00002",
-    //         video: "V3C1/videos/00002/00002.mp4",
-    //         frames: [
-    //             "shot00002_10_RKF.png",
-    //             "shot00002_11_RKF.png",
-    //             "shot00002_12_RKF.png"
-    //         ]
-    //     },
-    //     {
-    //         id: "00003",
-    //         video: "V3C1/videos/00003/00003.mp4",
-    //         frames: [
-    //             "shot00003_100_RKF.png",
-    //             "shot00003_101_RKF.png",
-    //             "shot00003_102_RKF.png"
-    //         ]
-    //     },
-    // ]
+    // Main image grid container is shown by default. 
+    // Therefore, we don't need a variable to manage the visibility of the image grid container.
+    // imageSources: [],
+    imageSources: [
+        {
+            date: "2019-07-07",
+            sources: [
+                {
+                    id: "20190707_075848_000",
+                    time: '07:58:48',
+                    path: "http://lifeseeker-sv.computing.dcu.ie/201907/07/20190707_075848_000.jpg"
+                },
+                {
+                    id: "20190707_075910_000",
+                    time: '07:59:10',
+                    path: "http://lifeseeker-sv.computing.dcu.ie/201907/07/20190707_075910_000.jpg"
+                },
+                {
+                    id: "20190707_075932_000",
+                    time: '07:59:32',
+                    path: "http://lifeseeker-sv.computing.dcu.ie/201907/07/20190707_075932_000.jpg"
+                }
+            ]
+        }
+    ],
 }
 
 

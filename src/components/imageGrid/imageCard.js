@@ -12,6 +12,7 @@ import { RESPONSE_SUCCESS } from '../../constants/response';
 import { handleKeyframesResponse } from '../../helpers/responseHelper';
 import { setKeyframesRankedListModalVisible, setKeyframesRankedListVideoId, setModalKeyframesRankedList } from '../../actions/actionKeyframesRankedListModal';
 import Image from './image'
+import MomentItem from './momentItem'
 
 
 const { Text } = Typography
@@ -58,7 +59,7 @@ function ImageCard(props) {
 
     return (
         <LazyLoad
-            height={200}
+            height={250}
             once
             overflow={true}
             offset={1000}
@@ -67,23 +68,58 @@ function ImageCard(props) {
         >
             <Card
                 bordered
-                style={{ width: 200, height: "100%" }}
+                style={{ width: 220, height: "100%" }}
                 // style={props.style}
                 cover={
-                    <div style={{ height: 150, width: "100%" }}>
-                        <Text strong style={{ marginLeft: 60, marginRight: 50 }}>Video {props.videoId}</Text>
-                        <Image
-                            style={{ width: 200, height: 100, transform: "scale(1)" }}
-                            src={props.sources[0]}
+                    <div style={{ height: 200, width: "100%", textAlign: "center" }}>
+                        <Text strong>{props.date}</Text>
+                        <MomentItem
+                            style={{
+                                width: 220,
+                                border: "1px solid #e8e8e8",
+                                paddingLeft: 5,
+                                paddingRight: 5,
+                                paddingBottom: 5,
+                                textAlign: "center",
+                            }}
+                            imageStyle={{ width: 200, height: 100, transform: "scale(1)" }}
+                            imgSrc={props.sources[0].path}
+                            id={props.sources[0].time}
                         />
                         <Space size={0}>
-                            <Image
-                                style={{ width: 100, height: 70, transform: "scale(1)" }}
-                                src={props.sources[1] !== undefined ? props.sources[1] : ERROR_IMAGE}
+                            <MomentItem
+                                style={{
+                                    width: 110,
+                                    border: "1px solid #e8e8e8",
+                                    paddingLeft: 5,
+                                    paddingRight: 5,
+                                    paddingBottom: 5,
+                                    textAlign: "center"
+                                }}
+                                imageStyle={{
+                                    height: 70,
+                                    width: 100,
+                                    transform: "scale(1)",
+                                }}
+                                imgSrc={props.sources[1].path !== undefined ? props.sources[1].path : ERROR_IMAGE}
+                                id={props.sources[1].time}
                             />
-                            <Image
-                                style={{ width: 100, height: 70, transform: "scale(1)" }}
-                                src={props.sources[2] !== undefined ? props.sources[2] : ERROR_IMAGE}
+                            <MomentItem
+                                style={{
+                                    width: 110,
+                                    border: "1px solid #e8e8e8",
+                                    paddingLeft: 5,
+                                    paddingRight: 5,
+                                    paddingBottom: 5,
+                                    textAlign: "center"
+                                }}
+                                imageStyle={{
+                                    height: 70,
+                                    width: 100,
+                                    transform: "scale(1)",
+                                }}
+                                imgSrc={props.sources[2].path !== undefined ? props.sources[2].path : ERROR_IMAGE}
+                                id={props.sources[2].time}
                             />
                         </Space>
                     </div>

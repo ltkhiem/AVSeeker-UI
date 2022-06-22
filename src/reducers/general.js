@@ -1,6 +1,8 @@
 const initialState = {
     isPressX: false,
-    isPressS: false
+    isPressS: false,
+    isPressR: false,
+    isPressW: false,
 }
 
 
@@ -15,6 +17,16 @@ const generalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isPressS: action.isPressS
+            }
+        case 'SET_IS_PRESS_R':
+            return {
+                ...state,
+                isPressR: action.isPressR
+            }
+        case 'SET_IS_PRESS_W':
+            return {
+                ...state,
+                isPressW: action.isPressW
             }
         default: return state
     }
