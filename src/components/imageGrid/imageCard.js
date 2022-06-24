@@ -15,6 +15,8 @@ import MomentItem from './momentItem'
 import moment from 'moment'
 import ImageListModal from './imageListModal';
 import { useState } from 'react'
+import { DRES_ERROR_RESPONSE, DRES_INCORRECT_SUBMISSION } from '../../constants/response';
+import { DRES_SUBMIT_API } from '../../constants/server';
 
 
 const { Text } = Typography
@@ -57,6 +59,26 @@ function ImageCard(props) {
     const onShowRankedListMoments = () => {
         // Assign new list
         setMomentsRankedListModalVisible(true)
+    }
+
+    const onMomentsRankedListSubmitButtonClicked = () => {
+        // Submit all the moments in the ranked list
+        const totalItems = props.sources.length
+        let submittedItemCnt = props.sources.map((source, index) => {
+            const submitURL = `${DRES_SUBMIT_API}?item=${source.id}&session=${props.userConfig.sessionId}`
+            props.dispatch(fetchData(submitURL, 'GET', {})).then((response) => {
+                if (response !== undefined && response.status !== DRES_ERROR_RESPONSE) {
+                    const { status, description, submission } = response
+                    if (submission !== DRES_INCORRECT_SUBMISSION) {
+                        // Submit successfully
+                    }
+                }
+            })
+        })
+        notification.success({
+            message: `Submit ${totalItems}/${totalItems}`,
+            placement: 'bottomRight',
+        })
     }
 
     return (
@@ -141,7 +163,7 @@ function ImageCard(props) {
                     moments={props.sources}
                     title={`All the moments in the ranked list of ${props.clusterId}`}
                     onCancel={() => setMomentsRankedListModalVisible(false)}
-                    onOk={() => setMomentsRankedListModalVisible(false)}
+                    onOk={() => onMomentsRankedListSubmitButtonClicked()}
                 />
             </Card>
         </LazyLoad>
@@ -150,7 +172,7 @@ function ImageCard(props) {
 
 
 const mapStatesToProps = (state) => ({
-    // momentsRankedList: state.momentsRankedList,
+    userConfig: state.userConfig,
 })
 
 

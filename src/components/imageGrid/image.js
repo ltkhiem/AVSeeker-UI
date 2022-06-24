@@ -25,7 +25,6 @@ function Image(props) {
             //Submit Result
             const submitURL = `${DRES_SUBMIT_API}?item=${props.id}&session=${props.userConfig.sessionId}`
             props.dispatch(fetchData(submitURL, 'GET', {})).then((response) => {
-                console.log(response)
                 if (response === undefined || response.status === DRES_ERROR_RESPONSE) {
                     notification.error({
                         message: `Submit: ${response === undefined ? "Unauthorized Request" : response.description}`,

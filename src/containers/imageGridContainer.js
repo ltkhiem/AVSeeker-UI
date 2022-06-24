@@ -71,7 +71,7 @@ function ImageGridContainer(props) {
                         scrollThreshold={0.9}
                         loader={<h4 style={{ textAlign: "center", marginTop: 5 }}>Loading...</h4>}
                         endMessage={
-                            <p style={{ textAlign: "center", marginTop: 5 }}>
+                            <p style={{ textAlign: "center", marginTop: 10 }}>
                                 <b>Yay! You have seen it all</b>
                             </p>
                         }
