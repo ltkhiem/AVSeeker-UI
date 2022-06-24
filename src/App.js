@@ -11,7 +11,7 @@ import { VIDEO_SERVER } from './constants/server';
 import { setSessionId, setUserId } from './actions/actionUserConfig';
 import ImageListModal from './components/imageGrid/imageListModal';
 import { setImageListModalVisible } from './actions/actionImageListModal';
-import { setKeyframesRankedListModalVisible } from './actions/actionKeyframesRankedListModal';
+import { setMomentsRankedListModalVisible } from './actions/actionMomentsRankedListModal';
 import { PRESS_S, PRESS_X } from './constants/interaction'
 import { setIsPressX, setIsPressS } from './actions/actionGeneral'
 import EventHandler from './components/eventHandler';
@@ -71,12 +71,12 @@ function App(props) {
 		props.dispatch(setImageListModalVisible(false))
 	}
 
-	const onKeyframesRankedListSubmitButtonClicked = () => {
-		onKeyframesRankedListCloseButtonClicked()
+	const onMomentsRankedListSubmitButtonClicked = () => {
+		onMomentsRankedListCloseButtonClicked()
 	}
 
-	const onKeyframesRankedListCloseButtonClicked = () => {
-		props.dispatch(setKeyframesRankedListModalVisible(false))
+	const onMomentsRankedListCloseButtonClicked = () => {
+		props.dispatch(setMomentsRankedListModalVisible(false))
 	}
 
 	return (
@@ -135,23 +135,23 @@ function App(props) {
 							: <div></div>
 					}
 					{/* // Show all the keyframes of the video */}
-					<ImageListModal
+					{/* <ImageListModal
 						visible={props.imageListModal.visible}
-						videoId={props.imageListModal.videoId}
-						frames={props.imageListModal.framesList}
+						clusterId={props.imageListModal.clusterId}
+						moments={props.imageListModal.momentsList}
 						title={`All keyframes of the video ${props.imageListModal.videoId}`}
 						onCancel={onImageListModalCloseButtonClicked}
 						onOk={onImageListModalSubmitButtonClicked}
-					/>
+					/> */}
 					{/* // Show keyframes in the ranked list returned from the search and filter API */}
-					<ImageListModal
-						visible={props.keyframesRankedList.visible}
-						videoId={props.keyframesRankedList.videoId}
-						frames={props.keyframesRankedList.framesList}
-						title={`Keyframes in the ranked list of the video ${props.keyframesRankedList.videoId}`}
-						onCancel={onKeyframesRankedListCloseButtonClicked}
-						onOk={onKeyframesRankedListSubmitButtonClicked}
-					/>
+					{/* <ImageListModal
+						visible={props.momentsRankedList.visible}
+						clusterId={props.momentsRankedList.clusterId}
+						moments={props.momentsRankedList.momentsList}
+						title={`All the moments in the ranked list of ${props.momentsRankedList.clusterId}`}
+						onCancel={onMomentsRankedListCloseButtonClicked}
+						onOk={onMomentsRankedListSubmitButtonClicked}
+					/> */}
 				</Content>
 
 			</Layout>
@@ -163,7 +163,7 @@ function App(props) {
 const mapStatesToProps = (state) => ({
 	videoViewer: state.videoViewer,
 	imageListModal: state.imageListModal,
-	keyframesRankedList: state.keyframesRankedList,
+	momentsRankedList: state.momentsRankedList,
 	visualSimilaritySources: state.visualSimilaritySources,
 })
 

@@ -1,34 +1,49 @@
 import { Modal } from 'antd'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
-import Image from './image'
+import { ImageListItemBar } from '@mui/material'
+import moment from 'moment'
+import MomentItem from './momentItem'
 
 
 function ImageListModal(props) {
+
     return (
         <Modal
             centered
-            width={700}
-            // title={`Image list of ${props.videoId}`}
+            width={920}
             title={props.title}
             visible={props.visible}
             onCancel={props.onCancel}
             onOk={props.onOk}
             okText="Submit All"
             cancelText={"Close"}
-        >   
-            <ImageList cols={4} sx={{ width: 650, height: 450, paddingLeft: 2, paddingRight: 2 }} rowHeight={144}>
+        >
+            <ImageList cols={5} sx={{ width: 850, height: 450, paddingLeft: 2, paddingRight: 2 }}>
                 {
-                    props.frames.map((frame, index) => {
+                    props.moments.map((data, index) => {
                         return (
                             <ImageListItem
                                 key={index}
                             >
-                                <Image 
-                                    className="image-modal-item"
-                                    style={{ width: 145, height: 145 }}
-                                    src={frame}
-                                    // loading="lazy"
+                                <MomentItem
+                                    style={{
+                                        width: 155,
+                                        height: 155,
+                                        padding: 5,
+                                    }}
+                                    imageStyle={{
+                                        width: 145,
+                                        height: 145,
+                                    }}
+                                    imgSrc={data.path}
+                                    // title={''}
+                                    id={data.id}
+                                />
+                                <ImageListItemBar 
+                                    title={moment(data.id, 'YYYYMMDD_hhmmss').format('LTS')}
+                                    position="below"
+                                    align="center"
                                 />
                             </ImageListItem>
                         )

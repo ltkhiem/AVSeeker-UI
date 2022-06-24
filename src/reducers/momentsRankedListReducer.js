@@ -1,26 +1,26 @@
 const initialState = {
     visible: false,
-    framesList: [],
-    videoId: ''
+    momentsList: [],
+    clusterId: ''
 }
 
 
 const keyframesRankedListReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "SET_KEYFRAMES_RANKED_LIST_MODAL_VISIBLE":
+        case "SET_MOMENTS_RANKED_LIST_MODAL_VISIBLE":
             return {
                 ...state,
                 visible: action.visible
             }
-        case "SET_MODAL_KEYFRAMES_RANKED_LIST":
+        case "SET_MODAL_MOMENTS_RANKED_LIST":
             return {
                 ...state,
-                framesList: action.framesList
+                momentsList: action.momentsList
             }
-        case "SET_KEYFRAMES_RANKED_LIST_MODAL_VIDEO_ID":
+        case "SET_MOMENTS_RANKED_LIST_MODAL_CLUSTER_ID":
             return {
                 ...state,
-                videoId: action.videoId
+                clusterId: action.clusterId
             }
         default:
             return state

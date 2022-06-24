@@ -22,6 +22,7 @@ function MomentItem(props) {
 
 
     const onMouseDown = () => {
+        console.log(selected)
         if (selected) {
             if (
                 (props.general.isPressW === true && selectedState === 'W')
@@ -57,20 +58,22 @@ function MomentItem(props) {
             }
         }
         else {
-            setSelected(true)
-            if (props.general.isPressR) {
-                // Set item background color to green (highlight) due to positive selection
-                setSelectedState('R')
+            if (props.general.isPressR || props.general.isPressW) {
+                setSelected(true)
+                if (props.general.isPressR) {
+                    // Set item background color to green (highlight) due to positive selection
+                    setSelectedState('R')
 
-                // Add item to the corresponding list
-                props.dispatch(addPositiveItem(props.id))
-            }
-            else if (props.general.isPressW) {
-                // Set item background color to red (highlight) due to negative selection
-                setSelectedState('W')
+                    // Add item to the corresponding list
+                    props.dispatch(addPositiveItem(props.id))
+                }
+                else if (props.general.isPressW) {
+                    // Set item background color to red (highlight) due to negative selection
+                    setSelectedState('W')
 
-                // Add item to the corresponding list
-                props.dispatch(addNegativeItem(props.id))
+                    // Add item to the corresponding list
+                    props.dispatch(addNegativeItem(props.id))
+                }
             }
         }
     }
@@ -82,11 +85,11 @@ function MomentItem(props) {
                 ...props.style,
                 backgroundColor: NEGATIVE_SELECTED_MOMENT_ITEM_COLOR,
             } :
-            selectedState === 'R' ? {
-                ...props.style,
-                backgroundColor: POSITIVE_SELECTED_MOMENT_ITEM_COLOR,
-            } :
-            props.style            
+                selectedState === 'R' ? {
+                    ...props.style,
+                    backgroundColor: POSITIVE_SELECTED_MOMENT_ITEM_COLOR,
+                } :
+                    props.style
         }
             onMouseDown={onMouseDown}
         >

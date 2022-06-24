@@ -76,7 +76,7 @@ function ImageGridContainer(props) {
                             </p>
                         }
                     >
-                        <Grid container spacing={1} justifyContent="center">
+                        <Grid container spacing={2} justifyContent="center">
                             {
                                 props.imageSources.imageSources.slice(0, currentLength).map((data, index) => {
                                     return (
@@ -85,7 +85,7 @@ function ImageGridContainer(props) {
                                                 scrollContainer={"image-grid-container"}
                                                 overflow
                                                 key={`image-card-${index}`}
-                                                sources={data.sources.slice(0, 3)}
+                                                sources={data.sources}
                                                 clusterId={data.clusterId}
                                             />
                                         </Grid>

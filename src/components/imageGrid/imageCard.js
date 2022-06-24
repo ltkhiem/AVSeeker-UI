@@ -10,15 +10,17 @@ import { fetchData } from '../../actions/fetchData';
 import { GET_SHOT_KEYFRAMES_API } from '../../constants/server';
 import { RESPONSE_SUCCESS } from '../../constants/response';
 import { handleKeyframesResponse } from '../../helpers/responseHelper';
-import { setKeyframesRankedListModalVisible, setKeyframesRankedListVideoId, setModalKeyframesRankedList } from '../../actions/actionKeyframesRankedListModal';
-import Image from './image'
+import { setModalMomentsRankedList, setMomentsRankedListClusterId } from '../../actions/actionMomentsRankedListModal';
 import MomentItem from './momentItem'
 import moment from 'moment'
+import ImageListModal from './imageListModal';
+import { useState } from 'react'
 
 
 const { Text } = Typography
 
 function ImageCard(props) {
+    const [momentsRankedListModalVisible, setMomentsRankedListModalVisible] = useState(false)
 
     const onPlayButtonClicked = () => {
         // Set VideoViewer data
@@ -52,10 +54,9 @@ function ImageCard(props) {
         // console.log(`Submit ${props.sources[index]}`)
     }
 
-    const onShowKeyframesRankedList = () => {
-        props.dispatch(setModalKeyframesRankedList(props.sources))
-        props.dispatch(setKeyframesRankedListVideoId(props.videoId))
-        props.dispatch(setKeyframesRankedListModalVisible(true))
+    const onShowRankedListMoments = () => {
+        // Assign new list
+        setMomentsRankedListModalVisible(true)
     }
 
     return (
@@ -104,7 +105,7 @@ function ImageCard(props) {
                                 }}
                                 imgSrc={props.sources[1] !== undefined ? props.sources[1].path : ERROR_IMAGE}
                                 id={props.sources[1] !== undefined ? props.sources[1].id : ''}
-                                title={props.sources[1] !== undefined ? moment(props.sources[1].id, 'YYYYMMDD_hhmmss').format('LTS'): ''} // Only get the time
+                                title={props.sources[1] !== undefined ? moment(props.sources[1].id, 'YYYYMMDD_hhmmss').format('LTS') : ''} // Only get the time
                             />
                             <MomentItem
                                 style={{
@@ -122,18 +123,26 @@ function ImageCard(props) {
                                 }}
                                 imgSrc={props.sources[2] !== undefined ? props.sources[2].path : ERROR_IMAGE}
                                 id={props.sources[2] !== undefined ? props.sources[2].id : ''}
-                                title={props.sources[2] !== undefined ? moment(props.sources[2].id, 'YYYYMMDD_hhmmss').format('LTS'): ''} // Only get the time
+                                title={props.sources[2] !== undefined ? moment(props.sources[2].id, 'YYYYMMDD_hhmmss').format('LTS') : ''} // Only get the time
                             />
                         </Space>
                     </div>
                 }
                 actions={[
-                    <KeyOutlined key="key" onClick={onShowKeyframesRankedList} />,
+                    <KeyOutlined key="key" onClick={onShowRankedListMoments} />,
                     // <SendOutlined key="send" onClick={onSubmitButtonClicked} />,
                     <UnorderedListOutlined key="images" onClick={onShowImagesButtonClicked} />,
                     <PlayCircleOutlined key="play" onClick={onPlayButtonClicked} />
                 ]}
             >
+                <ImageListModal
+                    visible={momentsRankedListModalVisible}
+                    clusterId={props.clusterId}
+                    moments={props.sources}
+                    title={`All the moments in the ranked list of ${props.clusterId}`}
+                    onCancel={() => setMomentsRankedListModalVisible(false)}
+                    onOk={() => setMomentsRankedListModalVisible(false)}
+                />
             </Card>
         </LazyLoad>
     )
@@ -141,7 +150,7 @@ function ImageCard(props) {
 
 
 const mapStatesToProps = (state) => ({
-
+    // momentsRankedList: state.momentsRankedList,
 })
 
 
