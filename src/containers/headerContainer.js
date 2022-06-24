@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { SettingOutlined } from '@ant-design/icons';
 import PopOverHelper from '../components/header/popOverHelper';
 import VisualSimilaritySearchButton from '../components/header/visualSimilaritySearchButton';
+import SubmitSelectedItemsButton from '../components/header/submitSelectedItemsButton';
 
 
 function HeaderContainer(props) {
@@ -76,8 +77,12 @@ function HeaderContainer(props) {
                 </Col>
 
                 {/* Setting & Utilities */}
-                <Col flex="165px">
+                <Col flex="200px">
                     <Space wrap={true} align="baseline" size={4}>
+                        {/* Submit Selected Items Button */}
+                        <SubmitSelectedItemsButton />
+
+                        {/* Visual Similarity Search Button */}
                         <VisualSimilaritySearchButton />
 
                         {/* Popover Helper */}
@@ -110,7 +115,7 @@ function HeaderContainer(props) {
 
 
 const mapStatesToProps = (state) => ({
-
+    
 })
 
 
