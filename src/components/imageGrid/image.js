@@ -21,12 +21,9 @@ function Image(props) {
 
     const onMouseDown = () => {
         if (props.general.isPressS === true) {
-            const splitString = props.src.split('/')
-            const shotId = splitString[3]
-            const frameId = splitString[4].split('_')[1]
 
             //Submit Result
-            const submitURL = `${DRES_SUBMIT_API}?item=${shotId}&shot=${frameId}&session=${props.userConfig.sessionId}`
+            const submitURL = `${DRES_SUBMIT_API}?item=${props.id}&session=${props.userConfig.sessionId}`
             props.dispatch(fetchData(submitURL, 'GET', {})).then((response) => {
                 console.log(response)
                 if (response === undefined || response.status === DRES_ERROR_RESPONSE) {

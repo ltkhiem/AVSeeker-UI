@@ -92,6 +92,7 @@ function MomentItem(props) {
         >
             <Text strong>{props.title}</Text>
             <Image
+                id={props.id}
                 style={props.imageStyle}
                 src={props.imgSrc}
             />

@@ -9,8 +9,8 @@ export const fetchData = (api, method, params) => {
         if (method === "POST") {
             return instance.post(api, params)
             .catch(err => {
-                dispatch(fetchDataError(err));
-                return err;
+                dispatch(fetchDataError(err.response));
+                return err.response;
             })
             .then(res => {
                 dispatch(fetchDataSuccess(res.data))
@@ -20,8 +20,8 @@ export const fetchData = (api, method, params) => {
         else {
             return instance.get(api)
                 .catch(err => {
-                    dispatch(fetchDataError(err));
-                    return err;
+                    dispatch(fetchDataError(err.response));
+                    return err.response;
                 })
                 .then(res => {
                     dispatch(fetchDataSuccess(res.data));
