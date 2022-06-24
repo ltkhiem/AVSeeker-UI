@@ -4,7 +4,7 @@ let initialState = {
     // imageSources: [],
     imageSources: [
         {
-            date: "2019-07-07",
+            clusterId: "2019-07-07",
             sources: [
                 {
                     id: "20190707_075848_000",

@@ -5,6 +5,7 @@ import { Grid } from '@mui/material'
 import { setIsLoadingSearch } from '../actions/actionQueryData'
 import { Spin } from 'antd'
 import MomentItem from '../components/imageGrid/momentItem';
+import moment from 'moment'
 
 
 function VisualSimilaritySearchContainer(props) {
@@ -94,6 +95,7 @@ function VisualSimilaritySearchContainer(props) {
                                                 }}
                                                 imgSrc={data.path}
                                                 id={data.id}
+                                                title={moment(data.id, 'YYYYMMDD_hhmmss').format('LLLL')}
                                             />
                                         </Grid>
                                     )

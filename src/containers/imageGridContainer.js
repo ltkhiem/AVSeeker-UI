@@ -86,7 +86,7 @@ function ImageGridContainer(props) {
                                                 overflow
                                                 key={`image-card-${index}`}
                                                 sources={data.sources.slice(0, 3)}
-                                                date={data.date}
+                                                clusterId={data.clusterId}
                                             />
                                         </Grid>
                                     )

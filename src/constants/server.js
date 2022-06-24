@@ -1,4 +1,4 @@
-export const IMAGE_SERVER = "http://lifeseeker-sv.computing.dcu.ie"
+export const IMAGE_SERVER = "http://thevncore-lab.mooo.com:20570"
 export const VIDEO_SERVER = "http://thevncore-lab.mooo.com:20588"
 
 export const MAIN_SERVER = "http://thevncore-lab.mooo.com:20501"

@@ -13,6 +13,7 @@ import { handleKeyframesResponse } from '../../helpers/responseHelper';
 import { setKeyframesRankedListModalVisible, setKeyframesRankedListVideoId, setModalKeyframesRankedList } from '../../actions/actionKeyframesRankedListModal';
 import Image from './image'
 import MomentItem from './momentItem'
+import moment from 'moment'
 
 
 const { Text } = Typography
@@ -69,10 +70,9 @@ function ImageCard(props) {
             <Card
                 bordered
                 style={{ width: 220, height: "100%" }}
-                // style={props.style}
                 cover={
                     <div style={{ height: 200, width: "100%", textAlign: "center" }}>
-                        <Text strong>{props.date}</Text>
+                        <Text strong>{props.clusterId}</Text>
                         <MomentItem
                             style={{
                                 width: 220,
@@ -84,7 +84,8 @@ function ImageCard(props) {
                             }}
                             imageStyle={{ width: 200, height: 100, transform: "scale(1)" }}
                             imgSrc={props.sources[0].path}
-                            id={props.sources[0].time}
+                            id={props.sources[0].id}
+                            title={moment(props.sources[0].id, 'YYYYMMDD_hhmmss').format('LTS')} // Only get the time
                         />
                         <Space size={0}>
                             <MomentItem
@@ -101,8 +102,9 @@ function ImageCard(props) {
                                     width: 100,
                                     transform: "scale(1)",
                                 }}
-                                imgSrc={props.sources[1].path !== undefined ? props.sources[1].path : ERROR_IMAGE}
-                                id={props.sources[1].time}
+                                imgSrc={props.sources[1] !== undefined ? props.sources[1].path : ERROR_IMAGE}
+                                id={props.sources[1] !== undefined ? props.sources[1].id : ''}
+                                title={props.sources[1] !== undefined ? moment(props.sources[1].id, 'YYYYMMDD_hhmmss').format('LTS'): ''} // Only get the time
                             />
                             <MomentItem
                                 style={{
@@ -118,8 +120,9 @@ function ImageCard(props) {
                                     width: 100,
                                     transform: "scale(1)",
                                 }}
-                                imgSrc={props.sources[2].path !== undefined ? props.sources[2].path : ERROR_IMAGE}
-                                id={props.sources[2].time}
+                                imgSrc={props.sources[2] !== undefined ? props.sources[2].path : ERROR_IMAGE}
+                                id={props.sources[2] !== undefined ? props.sources[2].id : ''}
+                                title={props.sources[2] !== undefined ? moment(props.sources[2].id, 'YYYYMMDD_hhmmss').format('LTS'): ''} // Only get the time
                             />
                         </Space>
                     </div>

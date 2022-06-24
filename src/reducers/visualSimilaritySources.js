@@ -14,7 +14,7 @@ const initialState = {
             path: "http://lifeseeker-sv.computing.dcu.ie/201907/07/20190707_075932_000.jpg"
         }
     ],
-    visualSimilaritySourcesVisible: true,
+    visualSimilaritySourcesVisible: false,
 }
 
 

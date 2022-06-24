@@ -16,9 +16,13 @@ export const handleStateTimelineResponse = (stateId, method, query) => {
 export const handleRankedListResponse = (rankedList) => {
     return rankedList.map((item) => {
         return {
-            id: item.shot_id,
-            video: `${VIDEO_SERVER}/${item.dataset}/videos/${item.shot_id}/${item.shot_id}.mp4`,
-            frames: item.keyframe_list.map((frame) => `${IMAGE_SERVER}/${item.shot_id}/${frame}.${IMAGE_EXTENSION}`),
+            clusterId: item.cluster_id,
+            sources: item.image_list.map((source) => {
+                return {
+                    id: source,
+                    path: `${IMAGE_SERVER}/${item.dataset_path}/${source}.${IMAGE_EXTENSION}`
+                }
+            })
         }
     })
 }

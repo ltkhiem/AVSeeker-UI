@@ -90,7 +90,7 @@ function MomentItem(props) {
         }
             onMouseDown={onMouseDown}
         >
-            <Text strong>{props.id}</Text>
+            <Text strong>{props.title}</Text>
             <Image
                 style={props.imageStyle}
                 src={props.imgSrc}
