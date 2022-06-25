@@ -9,6 +9,7 @@ import { handleRankedListResponse, handleStateTimelineResponse } from '../helper
 import { setImageSources } from '../actions/actionFetchDataSources'
 import { addStateTimelineData, setStatePointer, setStateTimeline } from '../actions/actionFetchDataSources'
 import { setIsLoadingSearch, setQueryData } from '../actions/actionQueryData'
+import { setVisualSimilaritySourcesVisible, setNegativeItems, setPositiveItems} from '../actions/actionVisualSimilaritySearch'
 
 
 const { Text } = Typography
@@ -34,6 +35,12 @@ function InteractiveQuestionnairContainer(props) {
             query: questionQuery,
         }))
         props.dispatch(setIsLoadingSearch(true))
+
+        // Hide the visual similarity search scrollable panel
+        props.dispatch(setVisualSimilaritySourcesVisible(false))
+        // Reset positive and negative items for visual similarity search and relevant feedback
+        props.dispatch(setPositiveItems([]))
+        props.dispatch(setNegativeItems([]))
 
         // Query to filter 
         props.dispatch(fetchData(FILTER_API, 'POST', params)).then((response) => {
@@ -74,6 +81,7 @@ function InteractiveQuestionnairContainer(props) {
             // Update ranked list
             const rankedList = handleRankedListResponse(data.ranked_list)
             props.dispatch(setImageSources(rankedList))
+            props.dispatch(setIsLoadingSearch(false))
 
             // Get new question
             const params = {
@@ -99,7 +107,7 @@ function InteractiveQuestionnairContainer(props) {
             })
         })
     }
-    
+
 
     const onYesButtonClicked = () => {
         props.dispatch(setInteractiveChoice("YES"))

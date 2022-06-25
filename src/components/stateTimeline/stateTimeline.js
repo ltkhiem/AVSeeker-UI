@@ -8,6 +8,7 @@ import { fetchData } from '../../actions/fetchData';
 import { handleRankedListResponse } from '../../helpers/responseHelper';
 import { setInteractiveQuestion } from '../../actions/actionInteractiveQuestion';
 import { setIsLoadingSearch } from '../../actions/actionQueryData';
+import { setNegativeItems, setPositiveItems, setVisualSimilaritySourcesVisible } from '../../actions/actionVisualSimilaritySearch';
 
 
 function StateTimeline(props) {
@@ -16,12 +17,20 @@ function StateTimeline(props) {
     const onTimelineItemClicked = (index) => {
         // Click on an item on the timeline
         const method = props.stateTimeline.states[index].method
-
+        
         if (method !== 'START') {
             let params = {
                 state_id: props.stateTimeline.states[index].state,
             }
             props.dispatch(setIsLoadingSearch(true))
+            
+            // Hide the visual similarity search scrollable panel
+            props.dispatch(setVisualSimilaritySourcesVisible(false))
+
+            // Reset positive and negative items for visual similarity search and relevant feedback
+            props.dispatch(setPositiveItems([]))
+            props.dispatch(setNegativeItems([]))
+
 
             props.dispatch(fetchData(LOAD_STATE_TIMELINE_RESULT_API, 'POST', params)).then((response) => {
                 // Handle error response
@@ -37,6 +46,8 @@ function StateTimeline(props) {
                 // Update ranked list data
                 const rankedList = handleRankedListResponse(data.ranked_list)
                 props.dispatch(setImageSources(rankedList))
+                props.dispatch(setIsLoadingSearch(false))
+
                 // Update state timeline
                 props.dispatch(setStatePointer({
                     value: index,
@@ -65,6 +76,13 @@ function StateTimeline(props) {
         }
         else {
             props.dispatch(setIsLoadingSearch(true))
+
+            // Hide the visual similarity search scrollable panel
+            props.dispatch(setVisualSimilaritySourcesVisible(false))
+
+            // Reset positive and negative items for visual similarity search and relevant feedback
+            props.dispatch(setPositiveItems([]))
+            props.dispatch(setNegativeItems([]))
 
             // Reset timeline
             const newStatePointer = {

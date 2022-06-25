@@ -1,7 +1,7 @@
 const initialState = {
     stateId: '',
     query: '',
-    isLoadingSearch: true,
+    isLoadingSearch: false,
 }
 
 

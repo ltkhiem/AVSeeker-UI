@@ -1,19 +1,13 @@
 // import './App.css';
 import { useRef, useEffect, useState } from 'react'
-import { Layout } from 'antd'
+import { Layout, Spin } from 'antd'
 import HeaderContainer from './containers/headerContainer'
 import ImageGridContainer from './containers/imageGridContainer';
 import StateTimeline from './components/stateTimeline/stateTimeline';
 import VideoViewer from './components/imageGrid/videoViewer';
 import { connect } from 'react-redux'
 import { setVideoModalVisible } from './actions/actionVideoViewer'
-import { VIDEO_SERVER } from './constants/server';
 import { setSessionId, setUserId } from './actions/actionUserConfig';
-import ImageListModal from './components/imageGrid/imageListModal';
-// import { setImageListModalVisible } from './actions/actionImageListModal';
-import { setMomentsRankedListModalVisible } from './actions/actionMomentsRankedListModal';
-import { PRESS_S, PRESS_X } from './constants/interaction'
-import { setIsPressX, setIsPressS } from './actions/actionGeneral'
 import EventHandler from './components/eventHandler';
 import VisualSimilaritySearchContainer from './containers/visualSimilaritySearchContainer';
 
@@ -103,12 +97,23 @@ function App(props) {
 					{
 						props.visualSimilaritySources.visualSimilaritySourcesVisible ?
 							<VisualSimilaritySearchContainer
-								style={{ height: "100%", 
-								backgroundColor: "white" }}
+								style={{
+									height: "100%",
+									backgroundColor: "white"
+								}}
 							/> :
-							<ImageGridContainer
-								style={{ height: "100%", backgroundColor: "white" }}
-							/>
+							props.isLoadingSearch ?
+								<Spin
+									tip="Loading..."
+									size="large"
+									style={{
+										position: 'fixed',
+										right: "50%"
+									}}
+								/> :
+								<ImageGridContainer
+									style={{ height: "100%", backgroundColor: "white" }}
+								/>
 					}
 					{/* Video Viewer */}
 					{
@@ -161,6 +166,7 @@ function App(props) {
 
 
 const mapStatesToProps = (state) => ({
+	query: state.query,
 	videoViewer: state.videoViewer,
 	visualSimilaritySources: state.visualSimilaritySources,
 })

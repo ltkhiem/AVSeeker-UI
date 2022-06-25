@@ -6,6 +6,7 @@ import { setIsLoadingSearch } from '../actions/actionQueryData'
 import { Spin } from 'antd'
 import MomentItem from '../components/imageGrid/momentItem';
 import moment from 'moment'
+import { setVisualSimilaritySourcesShowing } from '../actions/actionVisualSimilaritySearch';
 
 
 function VisualSimilaritySearchContainer(props) {
@@ -39,14 +40,13 @@ function VisualSimilaritySearchContainer(props) {
             // Set has more to false if there are less images than the initial visible list
             setHasMore(false)
         }
-        props.dispatch(setIsLoadingSearch(false))
     }, [props.visualSimilaritySources.vsImageSources])
 
 
     // Scroll to the top of the page after reset the visible container
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [props.query.isLoadingSearch])
+    // useEffect(() => {
+    //     window.scrollTo(0, 0)
+    // }, [props.query.isLoadingSearch])
 
 
     return (
@@ -95,7 +95,7 @@ function VisualSimilaritySearchContainer(props) {
                                                 }}
                                                 imgSrc={data.path}
                                                 id={data.id}
-                                                title={moment(data.id, 'YYYYMMDD_hhmmss').format('LLLL')}
+                                                title={moment(data.id, 'YYYYMMDD_hhmmss').format('LLL')}
                                             />
                                         </Grid>
                                     )

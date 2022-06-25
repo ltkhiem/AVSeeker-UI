@@ -40,8 +40,6 @@ function ImageGridContainer(props) {
             // Set has more to false if there are less images than the initial visible list
             setHasMore(false)
         }
-
-        props.dispatch(setIsLoadingSearch(false))
     }, [props.imageSources.imageSources])
 
     useEffect(() => {

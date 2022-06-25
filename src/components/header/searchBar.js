@@ -8,6 +8,8 @@ import { handleRankedListResponse, handleStateTimelineResponse } from '../../hel
 import { setImageSources, setStateTimeline, setStatePointer } from '../../actions/actionFetchDataSources';
 import { setIsLoadingSearch, setQueryData } from '../../actions/actionQueryData';
 import { setInteractiveQuestion } from '../../actions/actionInteractiveQuestion';
+import { setPositiveItems, setNegativeItems } from '../../actions/actionVisualSimilaritySearch';
+import { setVisualSimilaritySourcesVisible } from '../../actions/actionVisualSimilaritySearch';
 
 
 const mockVal = (str, repeat = 1) => ({
@@ -43,6 +45,14 @@ function SearchBar(props) {
 
         props.dispatch(setIsLoadingSearch(true))
 
+         // Hide the visual similarity search scrollable panel
+        props.dispatch(setVisualSimilaritySourcesVisible(false))
+
+        // Reset positive and negative items for visual similarity search and relevant feedback
+        props.dispatch(setPositiveItems([]))
+        props.dispatch(setNegativeItems([]))
+
+
         props.dispatch(fetchData(SEARCH_API, 'POST', params)).then((response) => {
             if (response.result !== RESPONSE_SUCCESS) {
                 notification.error({
@@ -74,6 +84,7 @@ function SearchBar(props) {
             // Update rankedList data
             const rankedList = handleRankedListResponse(data.ranked_list)
             props.dispatch(setImageSources(rankedList))
+            props.dispatch(setIsLoadingSearch(false))
 
             // // Get new question
             const params = {

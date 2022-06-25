@@ -36,3 +36,13 @@ export const handleGetAllDayMomentsRepsonse = (momentsList, datasetPath) => {
         }
     })
 }
+
+
+export const handleVisualSimilaritySearch = (momentsList) => {
+    return momentsList.map((item) => {
+        return {
+            id: item.image_id,
+            path: `${IMAGE_SERVER}/${item.dataset_path}/${item.image_id}.${IMAGE_EXTENSION}`
+        }
+    })
+}

@@ -9,8 +9,17 @@ import { fetchData } from '../../actions/fetchData'
 function SubmitSelectedItemsButton(props) {
 
     const submitSelectedItems = () => {
-        const totalItems = props.visualSimilarityQuery.positiveItems.length
-        props.visualSimilarityQuery.positiveItems.forEach(item => {
+        let selectedItems = []
+        if (props.visualSimilaritySources.visualSimilaritySourcesVisible) {
+            const MAX_NUMBER_OF_ITEMS = 80
+            selectedItems = props.visualSimilaritySources.vsImageSources.map(item => item.id).slice(0, MAX_NUMBER_OF_ITEMS)
+        }
+        else {
+            selectedItems = props.visualSimilarityQuery.positiveItems
+        }
+        const totalItems = selectedItems.length
+        console.log(selectedItems)
+        selectedItems.forEach(item => {
             const submitURL = `${DRES_SUBMIT_API}?item=${item}&session=${props.userConfig.sessionId}`
             props.dispatch(fetchData(submitURL, 'GET', {})).then((response) => {
                 if (response !== undefined && response.status !== DRES_ERROR_RESPONSE) {
@@ -27,10 +36,21 @@ function SubmitSelectedItemsButton(props) {
         })
     }
 
+    const popOverHelper = () => {
+        return (
+            <div>
+                <b>Search/Filter Mode</b>
+                <p>- Submit selected items (colored green) to the server.</p>
+                <b>Visual Similarity Search Mode</b>
+                <p>- Submit all items in the scrollable panel.</p>
+            </div>
+        )
+    }
+
     return (
         <Popover
-            title="Submit Selected Items" 
-            content="Submit selected items (colored green) to the server"
+            title="Submit Selected Items"
+            content={popOverHelper}
             placement="bottomRight"
         >
             <Button
@@ -51,6 +71,7 @@ function SubmitSelectedItemsButton(props) {
 const mapStatesToProps = (state) => ({
     visualSimilarityQuery: state.visualSimilarityQuery,
     userConfig: state.userConfig,
+    visualSimilaritySources: state.visualSimilaritySources
 })
 
 export default connect(mapStatesToProps)(SubmitSelectedItemsButton)

@@ -10,6 +10,12 @@ export const setVisualSimilaritySourcesVisible = (visualSimilaritySourcesVisible
 })
 
 
+export const setVisualSimilaritySourcesShowing = (visualSimilaritySourcesShowing) => ({
+    type: "SET_VISUAL_SIMILARITY_SOURCES_SHOWING",
+    visualSimilaritySourcesShowing: visualSimilaritySourcesShowing,
+})
+
+
 export const addPositiveItem = (item) => ({
     type: "ADD_POSITIVE_ITEM",
     item: item,
