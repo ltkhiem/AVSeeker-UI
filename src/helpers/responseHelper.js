@@ -28,6 +28,11 @@ export const handleRankedListResponse = (rankedList) => {
 }
 
 
-export const handleKeyframesResponse = (keyframes, shotId) => {
-    return keyframes.map((item) => `${IMAGE_SERVER}/${shotId}/${item}.${IMAGE_EXTENSION}`)
+export const handleGetAllDayMomentsRepsonse = (momentsList, datasetPath) => {
+    return momentsList.map((item) => {
+        return {
+            id: item,
+            path: `${IMAGE_SERVER}/${datasetPath}/${item}.${IMAGE_EXTENSION}`
+        }
+    })
 }

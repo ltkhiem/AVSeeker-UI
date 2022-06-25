@@ -7,7 +7,7 @@ import queryReducer from "./query";
 import videoViewerReducer from "./videoViewer"
 import interactiveQuestionReducer from "./interactiveQuestion";
 import userConfigReducer from "./userConfig";
-import imageListModalReducer from "./imageListModal";
+import allDayMomentsModalReducer from "./allDayMomentsModal";
 import momentsRankedListReducer from "./momentsRankedListReducer";
 import visualSimilaritySourcesReducer from "./visualSimilaritySources";
 import visualSimilarityQueryReducer from "./visualSimilarityQuery";
@@ -23,7 +23,7 @@ export default configureStore({
         videoViewer: videoViewerReducer,
         interactiveQuestion: interactiveQuestionReducer,
         userConfig: userConfigReducer,
-        imageListModal: imageListModalReducer,
+        allDayMomentsModal: allDayMomentsModalReducer,
         momentsRankedList: momentsRankedListReducer,
         visualSimilaritySources: visualSimilaritySourcesReducer,
         general: generalReducer,

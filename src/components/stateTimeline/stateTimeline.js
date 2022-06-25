@@ -12,6 +12,81 @@ import { setIsLoadingSearch } from '../../actions/actionQueryData';
 
 function StateTimeline(props) {
 
+
+    const onTimelineItemClicked = (index) => {
+        // Click on an item on the timeline
+        const method = props.stateTimeline.states[index].method
+
+        if (method !== 'START') {
+            let params = {
+                state_id: props.stateTimeline.states[index].state,
+            }
+            props.dispatch(setIsLoadingSearch(true))
+
+            props.dispatch(fetchData(LOAD_STATE_TIMELINE_RESULT_API, 'POST', params)).then((response) => {
+                // Handle error response
+                if (response.result !== RESPONSE_SUCCESS) {
+                    notification.error({
+                        message: `State timeline: ${response.result}`,
+                        placement: "bottomRight",
+                    })
+                }
+
+                const data = response.reply
+
+                // Update ranked list data
+                const rankedList = handleRankedListResponse(data.ranked_list)
+                props.dispatch(setImageSources(rankedList))
+                // Update state timeline
+                props.dispatch(setStatePointer({
+                    value: index,
+                    previous: props.stateTimeline.statePointer.value
+                }))
+
+            })
+            // Load corresponding question
+            props.dispatch(fetchData(INTERACTIVE_QUESTION_API, 'POST', params)).then((response) => {
+                if (response.result !== RESPONSE_SUCCESS) {
+                    notification.error({
+                        message: `Interactive Question: ${response.result}`,
+                        placement: 'bottomRight',
+                    })
+                    return
+                }
+                const data = response.reply
+                if (data.question === NO_QUESTION_RESPONSE) {
+                    props.dispatch(setInteractiveQuestion(""))
+                }
+                else {
+                    const newQuestion = data.question.split('/').pop()
+                    props.dispatch(setInteractiveQuestion(newQuestion))
+                }
+            })
+        }
+        else {
+            props.dispatch(setIsLoadingSearch(true))
+
+            // Reset timeline
+            const newStatePointer = {
+                value: 0,
+                previous: 0
+            }
+            props.dispatch(setStatePointer(newStatePointer))
+            const newState = [{
+                datetime: new Date().toLocaleString(),
+                state: '',
+                method: 'START',
+                query: '',
+            }]
+            props.dispatch(setStateTimeline(newState))
+            // Update ranked list data
+            const rankedList = []
+            props.dispatch(setImageSources(rankedList))
+            // Reset question in active search
+            props.dispatch(setInteractiveQuestion(""))
+        }
+    }
+
     return (
         <div style={{
             width: '100%',
@@ -41,79 +116,7 @@ function StateTimeline(props) {
                         )
                     }
                 }
-                indexClick={(index) => {
-
-                    const method = props.stateTimeline.states[index].method
-
-                    if (method !== 'START') {
-                        let params = {
-                            state_id: props.stateTimeline.states[index].state,
-                        }
-                        props.dispatch(setIsLoadingSearch(true))
-
-                        props.dispatch(fetchData(LOAD_STATE_TIMELINE_RESULT_API, 'POST', params)).then((response) => {
-                            // Handle error response
-                            if (response.result !== RESPONSE_SUCCESS) {
-                                notification.error({
-                                    message: `State timeline: ${response.result}`,
-                                    placement: "bottomRight",
-                                })
-                            }
-
-                            const data = response.reply
-
-                            // Update ranked list data
-                            const rankedList = handleRankedListResponse(data.ranked_list)
-                            props.dispatch(setImageSources(rankedList))
-                            // Update state timeline
-                            props.dispatch(setStatePointer({
-                                value: index,
-                                previous: props.stateTimeline.statePointer.value
-                            }))
-
-                        })
-                        // Load corresponding question
-                        props.dispatch(fetchData(INTERACTIVE_QUESTION_API, 'POST', params)).then((response) => {
-                            if (response.result !== RESPONSE_SUCCESS) {
-                                notification.error({
-                                    message: `Interactive Question: ${response.result}`,
-                                    placement: 'bottomRight',
-                                })
-                                return
-                            }
-                            const data = response.reply
-                            if (data.question === NO_QUESTION_RESPONSE) {
-                                props.dispatch(setInteractiveQuestion(""))
-                            }
-                            else {
-                                const newQuestion = data.question.split('/').pop()
-                                props.dispatch(setInteractiveQuestion(newQuestion))
-                            }
-                        })
-                    }
-                    else {
-                        props.dispatch(setIsLoadingSearch(true))
-
-                        // Reset timeline
-                        const newStatePointer = {
-                            value: 0,
-                            previous: 0
-                        }
-                        props.dispatch(setStatePointer(newStatePointer))
-                        const newState = [{
-                            datetime: new Date().toLocaleString(),
-                            state: '',
-                            method: 'START',
-                            query: '',
-                        }]
-                        props.dispatch(setStateTimeline(newState))
-                        // Update ranked list data
-                        const rankedList = []
-                        props.dispatch(setImageSources(rankedList))
-                        // Reset question in active search
-                        props.dispatch(setInteractiveQuestion(""))
-                    }
-                }}
+                indexClick={(index) => onTimelineItemClicked(index)}
                 values={
                     props.stateTimeline.states.map((item) => item.datetime)
                 } />

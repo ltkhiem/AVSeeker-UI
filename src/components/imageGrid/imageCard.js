@@ -5,12 +5,11 @@ import { connect } from 'react-redux'
 import { ERROR_IMAGE } from '../../constants/image';
 import { setVideoModalVisible, setVideoModalData } from '../../actions/actionVideoViewer'
 import LazyLoad from 'react-lazyload'
-import { setImageListModalVisible, setImageListVideoId, setModalFramesList } from '../../actions/actionImageListModal';
+import { setAllDayMomentsList } from '../../actions/actionGetAllDayMoments';
 import { fetchData } from '../../actions/fetchData';
-import { GET_SHOT_KEYFRAMES_API } from '../../constants/server';
+import { GET_ALL_IMAGES_BY_DATE } from '../../constants/server';
 import { RESPONSE_SUCCESS } from '../../constants/response';
-import { handleKeyframesResponse } from '../../helpers/responseHelper';
-import { setModalMomentsRankedList, setMomentsRankedListClusterId } from '../../actions/actionMomentsRankedListModal';
+import { handleGetAllDayMomentsRepsonse } from '../../helpers/responseHelper';
 import MomentItem from './momentItem'
 import moment from 'moment'
 import ImageListModal from './imageListModal';
@@ -23,6 +22,7 @@ const { Text } = Typography
 
 function ImageCard(props) {
     const [momentsRankedListModalVisible, setMomentsRankedListModalVisible] = useState(false)
+    const [allDayMomentsModalVisible, setAllDayMomentsModalVisible] = useState(false)
 
     const onPlayButtonClicked = () => {
         // Set VideoViewer data
@@ -32,22 +32,23 @@ function ImageCard(props) {
     }
 
     const onShowImagesButtonClicked = () => {
+        const dateInfo = props.clusterId.split(' ')[0].split('/')
+        const date = `${dateInfo[2]}${dateInfo[1]}/${dateInfo[0]}` // YYYYMM/DD
         const params = {
-            shot_id: props.videoId
+            date_id: date
         }
-        props.dispatch(fetchData(GET_SHOT_KEYFRAMES_API, 'POST', params)).then((response) => {
+        props.dispatch(fetchData(GET_ALL_IMAGES_BY_DATE, 'POST', params)).then((response) => {
             if (response.result !== RESPONSE_SUCCESS) {
                 notification.error({
-                    message: `Get keyframes: ${response.result}`,
+                    message: `Get all day moments: ${response.result}`,
                     placement: 'bottomRight',
                 })
                 return
             }
+            setAllDayMomentsModalVisible(true)
             const data = response.reply
-            const keyframesList = handleKeyframesResponse(data.keyframes_list, props.videoId)
-            props.dispatch(setModalFramesList(keyframesList))
-            props.dispatch(setImageListVideoId(props.videoId))
-            props.dispatch(setImageListModalVisible(true))
+            const momentsList = handleGetAllDayMomentsRepsonse(data.image_list, data.dataset_path)
+            props.dispatch(setAllDayMomentsList(momentsList))
         })
     }
 
@@ -61,10 +62,10 @@ function ImageCard(props) {
         setMomentsRankedListModalVisible(true)
     }
 
-    const onMomentsRankedListSubmitButtonClicked = () => {
+    const onAllMomentsSubmitButtonClicked = (sources) => {
         // Submit all the moments in the ranked list
-        const totalItems = props.sources.length
-        let submittedItemCnt = props.sources.map((source, index) => {
+        const totalItems = sources.length
+        sources.map((source, index) => {
             const submitURL = `${DRES_SUBMIT_API}?item=${source.id}&session=${props.userConfig.sessionId}`
             props.dispatch(fetchData(submitURL, 'GET', {})).then((response) => {
                 if (response !== undefined && response.status !== DRES_ERROR_RESPONSE) {
@@ -80,6 +81,7 @@ function ImageCard(props) {
             placement: 'bottomRight',
         })
     }
+
 
     return (
         <LazyLoad
@@ -157,13 +159,24 @@ function ImageCard(props) {
                     <PlayCircleOutlined key="play" onClick={onPlayButtonClicked} />
                 ]}
             >
+                {/* Show all the moments on a day */}
+                <ImageListModal
+                    visible={allDayMomentsModalVisible}
+                    clusterId={props.clusterId}
+                    moments={props.allDayMomentsModal.momentsList}
+                    title={`All moments of the date ${props.clusterId}`}
+                    onCancel={() => setAllDayMomentsModalVisible(false)}
+                    onOk={() => onAllMomentsSubmitButtonClicked(props.allDayMomentsModal.momentsList)}
+                />
+
+                {/* Show all the moments on a ranked list */}
                 <ImageListModal
                     visible={momentsRankedListModalVisible}
                     clusterId={props.clusterId}
                     moments={props.sources}
                     title={`All the moments in the ranked list of ${props.clusterId}`}
                     onCancel={() => setMomentsRankedListModalVisible(false)}
-                    onOk={() => onMomentsRankedListSubmitButtonClicked()}
+                    onOk={() => onAllMomentsSubmitButtonClicked(props.sources)}
                 />
             </Card>
         </LazyLoad>
@@ -173,6 +186,7 @@ function ImageCard(props) {
 
 const mapStatesToProps = (state) => ({
     userConfig: state.userConfig,
+    allDayMomentsModal: state.allDayMomentsModal,
 })
 
 

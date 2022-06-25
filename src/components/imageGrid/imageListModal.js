@@ -37,7 +37,6 @@ function ImageListModal(props) {
                                         height: 145,
                                     }}
                                     imgSrc={data.path}
-                                    // title={''}
                                     id={data.id}
                                 />
                                 <ImageListItemBar 

@@ -10,7 +10,7 @@ import { setVideoModalVisible } from './actions/actionVideoViewer'
 import { VIDEO_SERVER } from './constants/server';
 import { setSessionId, setUserId } from './actions/actionUserConfig';
 import ImageListModal from './components/imageGrid/imageListModal';
-import { setImageListModalVisible } from './actions/actionImageListModal';
+// import { setImageListModalVisible } from './actions/actionImageListModal';
 import { setMomentsRankedListModalVisible } from './actions/actionMomentsRankedListModal';
 import { PRESS_S, PRESS_X } from './constants/interaction'
 import { setIsPressX, setIsPressS } from './actions/actionGeneral'
@@ -63,21 +63,21 @@ function App(props) {
 
 	}
 
-	const onImageListModalSubmitButtonClicked = () => {
-		onImageListModalCloseButtonClicked()
-	}
+	// const onImageListModalSubmitButtonClicked = () => {
+	// 	onImageListModalCloseButtonClicked()
+	// }
 
-	const onImageListModalCloseButtonClicked = () => {
-		props.dispatch(setImageListModalVisible(false))
-	}
+	// const onImageListModalCloseButtonClicked = () => {
+	// 	// props.dispatch(setImageListModalVisible(false))
+	// }
 
-	const onMomentsRankedListSubmitButtonClicked = () => {
-		onMomentsRankedListCloseButtonClicked()
-	}
+	// const onMomentsRankedListSubmitButtonClicked = () => {
+	// 	onMomentsRankedListCloseButtonClicked()
+	// }
 
-	const onMomentsRankedListCloseButtonClicked = () => {
-		props.dispatch(setMomentsRankedListModalVisible(false))
-	}
+	// const onMomentsRankedListCloseButtonClicked = () => {
+	// 	props.dispatch(setMomentsRankedListModalVisible(false))
+	// }
 
 	return (
 		<div className="App">
@@ -162,8 +162,6 @@ function App(props) {
 
 const mapStatesToProps = (state) => ({
 	videoViewer: state.videoViewer,
-	imageListModal: state.imageListModal,
-	momentsRankedList: state.momentsRankedList,
 	visualSimilaritySources: state.visualSimilaritySources,
 })
 
