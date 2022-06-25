@@ -76,25 +76,25 @@ function SearchBar(props) {
             props.dispatch(setImageSources(rankedList))
 
             // // Get new question
-            // const params = {
-            //     state_id: data.state_id,
-            // }
-            // props.dispatch(fetchData(INTERACTIVE_QUESTION_API, 'POST', params)).then((response) => {
-            //     if (response.result !== RESPONSE_SUCCESS) {
-            //         notification.error({
-            //             message: `Interactive Question: ${response.result}`,
-            //             placement: 'bottomRight',
-            //         })
-            //     }
-            //     const data = response.reply
-            //     if (data.question === NO_QUESTION_RESPONSE) {
-            //         props.dispatch(setInteractiveQuestion(""))
-            //     }
-            //     else {
-            //         const newQuestion = data.question.split('/').pop()
-            //         props.dispatch(setInteractiveQuestion(newQuestion))
-            //     }
-            // })
+            const params = {
+                state_id: data.state_id,
+            }
+            props.dispatch(fetchData(INTERACTIVE_QUESTION_API, 'POST', params)).then((response) => {
+                if (response.result !== RESPONSE_SUCCESS) {
+                    notification.error({
+                        message: `Interactive Question: ${response.result}`,
+                        placement: 'bottomRight',
+                    })
+                }
+                const data = response.reply
+                if (data.question === NO_QUESTION_RESPONSE) {
+                    props.dispatch(setInteractiveQuestion(""))
+                }
+                else {
+                    const newQuestion = data.question.split('/').pop()
+                    props.dispatch(setInteractiveQuestion(newQuestion))
+                }
+            })
         })
 
     }
