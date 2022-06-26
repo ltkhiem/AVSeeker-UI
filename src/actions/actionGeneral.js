@@ -20,3 +20,9 @@ export const setIsPressW = (isPressW) => ({
     type : "SET_IS_PRESS_W",
     isPressW: isPressW,
 })
+
+
+export const setIsPressT = (isPressT) => ({
+    type: "SET_IS_PRESS_T",
+    isPressT: isPressT,
+})

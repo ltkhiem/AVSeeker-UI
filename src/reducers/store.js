@@ -11,6 +11,7 @@ import allDayMomentsModalReducer from "./allDayMomentsModal";
 import momentsRankedListReducer from "./momentsRankedListReducer";
 import visualSimilaritySourcesReducer from "./visualSimilaritySources";
 import visualSimilarityQueryReducer from "./visualSimilarityQuery";
+import momentTimelineReducer from "./momentTimelineReducer";
 import generalReducer from "./general";
 
 
@@ -27,9 +28,10 @@ export default configureStore({
         momentsRankedList: momentsRankedListReducer,
         visualSimilaritySources: visualSimilaritySourcesReducer,
         general: generalReducer,
+        momentTimeline: momentTimelineReducer,
     },
     middleware: [
         thunk,
-        // logger,
+        logger,
     ]
 })

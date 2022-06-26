@@ -3,6 +3,7 @@ const initialState = {
     isPressS: false,
     isPressR: false,
     isPressW: false,
+    isPressT: false,
 }
 
 
@@ -27,6 +28,11 @@ const generalReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isPressW: action.isPressW
+            }
+        case 'SET_IS_PRESS_T':
+            return {
+                ...state,
+                isPressT: action.isPressT,
             }
         default: return state
     }

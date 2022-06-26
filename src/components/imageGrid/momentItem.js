@@ -22,7 +22,6 @@ function MomentItem(props) {
 
 
     const onMouseDown = () => {
-        console.log(selected, selectedState)
         if (selected) {
             if (
                 (props.general.isPressW === true && selectedState === 'W')

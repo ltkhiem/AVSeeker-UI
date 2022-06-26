@@ -46,3 +46,22 @@ export const handleVisualSimilaritySearch = (momentsList) => {
         }
     })
 }
+
+
+export const handleGetTemporalImages = (prevMoments, currentMoment, nextMoments) => {
+    return [
+        ...prevMoments.map((item) => {
+            return {
+                id: item.image_id,
+                path: `${IMAGE_SERVER}/${item.dataset_path}/${item.image_id}.${IMAGE_EXTENSION}`
+            }
+        }),
+        currentMoment,
+        ...nextMoments.map((item) => {
+            return {
+                id: item.image_id,
+                path: `${IMAGE_SERVER}/${item.dataset_path}/${item.image_id}.${IMAGE_EXTENSION}`
+            }
+        })
+    ]
+}

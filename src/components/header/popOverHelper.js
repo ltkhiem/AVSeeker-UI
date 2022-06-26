@@ -25,6 +25,10 @@ function PopOverHelper(props) {
                         justify='space-between'>
                         <b>R + Left Click</b> &emsp; Choose Positive
                     </Row>
+                    <Row
+                        justify='space-between'>
+                        <b>T + Left Click</b> &emsp; Show Timeline
+                    </Row>
 
                 </Col>
             </Space>

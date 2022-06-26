@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { PRESS_S, PRESS_W, PRESS_X, PRESS_R } from '../constants/interaction'
-import { setIsPressX, setIsPressS, setIsPressR, setIsPressW } from '../actions/actionGeneral'
+import { PRESS_S, PRESS_W, PRESS_X, PRESS_R, PRESS_T } from '../constants/interaction'
+import { setIsPressX, setIsPressS, setIsPressR, setIsPressW, setIsPressT } from '../actions/actionGeneral'
 
 
 function EventHandler(props) {
@@ -22,6 +22,10 @@ function EventHandler(props) {
         if (event.which === PRESS_R && props.general.isPressR === false) {
             props.dispatch(setIsPressR(true))
         }
+        // Press t
+        if (event.which === PRESS_T && props.general.isPressT === false) {
+            props.dispatch(setIsPressT(true))
+        }
     }
 
     const handleImageItemKeyUp = (event) => {
@@ -41,6 +45,10 @@ function EventHandler(props) {
         if (event.which === PRESS_R && props.general.isPressR === true) {
             props.dispatch(setIsPressR(false))
         }
+        // Press t
+        if (event.which === PRESS_T && props.general.isPressT === true) {
+            props.dispatch(setIsPressT(false))
+        }
     }
 
     useEffect(() => {
@@ -52,7 +60,7 @@ function EventHandler(props) {
             document.removeEventListener('keydown', handleImageItemKeyDown)
             document.removeEventListener('keyup', handleImageItemKeyUp)
         }
-    }, [props.general.isPressS, props.general.isPressX, props.general.isPressR, props.general.isPressW])
+    }, [props.general.isPressS, props.general.isPressX, props.general.isPressR, props.general.isPressW, props.general.isPressT])
 
     return (<div></div>)
 }

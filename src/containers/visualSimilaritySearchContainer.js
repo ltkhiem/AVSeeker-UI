@@ -44,9 +44,9 @@ function VisualSimilaritySearchContainer(props) {
 
 
     // Scroll to the top of the page after reset the visible container
-    // useEffect(() => {
-    //     window.scrollTo(0, 0)
-    // }, [props.query.isLoadingSearch])
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [props.query.isLoadingSearch])
 
 
     return (

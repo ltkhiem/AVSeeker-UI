@@ -11,6 +11,8 @@ import { setSessionId, setUserId } from './actions/actionUserConfig';
 import EventHandler from './components/eventHandler';
 import VisualSimilaritySearchContainer from './containers/visualSimilaritySearchContainer';
 import { SwipeableDrawer } from '@mui/material';
+import { setMomentTimelineVisible } from './actions/actionMomentTimeline';
+import ImageListModal from './components/imageGrid/imageListModal';
 
 
 const { Header, Content } = Layout;
@@ -103,36 +105,19 @@ function App(props) {
 									backgroundColor: "white"
 								}}
 							/> :
-							// props.isLoadingSearch ?
-							// 	<Spin
-							// 		tip="Loading..."
-							// 		size="large"
-							// 		style={{
-							// 			position: 'fixed',
-							// 			right: "50%"
-							// 		}}
-								// /> :
+							props.isLoadingSearch ?
+								<Spin
+									tip="Loading..."
+									size="large"
+									style={{
+										position: 'fixed',
+										right: "50%"
+									}}
+								/> :
 								<ImageGridContainer
 									style={{ height: "100%", backgroundColor: "white" }}
 								/>
 					}
-
-					{/* <VisualSimilaritySearchContainer /> */}
-
-					{/* Visual Similarity Drawer Panel */}
-					{/* <React.Fragment>
-						<SwipeableDrawer 
-							anchor="right"
-							open={props.visualSimilaritySources.visualSimilaritySourcesVisible}
-						>
-							<VisualSimilaritySearchContainer
-								style={{
-									height: "100%",
-									backgroundColor: "white"
-								}}
-							/>
-						</SwipeableDrawer>
-					</React.Fragment> */}
 
 					{/* Video Viewer */}
 					{
@@ -158,6 +143,17 @@ function App(props) {
 							/>
 							: <div></div>
 					}
+
+					{/* Show timeline of a moment */}
+					<ImageListModal 
+						visible={props.momentTimeline.visible}
+						clusterId={props.momentTimeline.imageId}
+						moments={props.momentTimeline.momentsTimeline}
+						title={`Moments before and after ${props.momentTimeline.imageId}`}
+						onCancel={() => props.dispatch(setMomentTimelineVisible(false))}
+						onOk={() => props.dispatch(setMomentTimelineVisible(false))}
+					/>
+
 					{/* // Show all the keyframes of the video */}
 					{/* <ImageListModal
 						visible={props.imageListModal.visible}
@@ -186,6 +182,7 @@ function App(props) {
 
 const mapStatesToProps = (state) => ({
 	query: state.query,
+	momentTimeline: state.momentTimeline,
 	videoViewer: state.videoViewer,
 	visualSimilaritySources: state.visualSimilaritySources,
 })
