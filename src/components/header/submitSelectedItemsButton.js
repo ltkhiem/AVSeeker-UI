@@ -18,7 +18,6 @@ function SubmitSelectedItemsButton(props) {
             selectedItems = props.visualSimilarityQuery.positiveItems
         }
         const totalItems = selectedItems.length
-        console.log(selectedItems)
         selectedItems.forEach(item => {
             const submitURL = `${DRES_SUBMIT_API}?item=${item}&session=${props.userConfig.sessionId}`
             props.dispatch(fetchData(submitURL, 'GET', {})).then((response) => {
