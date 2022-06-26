@@ -63,7 +63,7 @@ function Image(props) {
                 mouseOver === true ? {
                     width: props.style.width,
                     height: props.style.height,
-                    transform: 'scale(1.5)',
+                    transform: 'scale(2.5)',
                     zIndex: 1,
                     overflow: 'hidden',
                     position: "relative"
