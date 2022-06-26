@@ -11,7 +11,7 @@ function SubmitSelectedItemsButton(props) {
     const submitSelectedItems = () => {
         let selectedItems = []
         if (props.visualSimilaritySources.visualSimilaritySourcesVisible) {
-            const MAX_NUMBER_OF_ITEMS = 80
+            const MAX_NUMBER_OF_ITEMS = 150
             selectedItems = props.visualSimilaritySources.vsImageSources.map(item => item.id).slice(0, MAX_NUMBER_OF_ITEMS)
         }
         else {
@@ -39,10 +39,10 @@ function SubmitSelectedItemsButton(props) {
     const popOverHelper = () => {
         return (
             <div>
-                <b>Search/Filter Mode</b>
+                <b>Search/Filter/Active Search Mode</b>
                 <p>- Submit selected items (colored green) to the server.</p>
                 <b>Visual Similarity Search Mode</b>
-                <p>- Submit all items in the scrollable panel.</p>
+                <p>- Submit first 80 items in the scrollable panel.</p>
             </div>
         )
     }

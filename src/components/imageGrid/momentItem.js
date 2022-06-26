@@ -22,7 +22,7 @@ function MomentItem(props) {
 
 
     const onMouseDown = () => {
-        console.log(selected)
+        console.log(selected, selectedState)
         if (selected) {
             if (
                 (props.general.isPressW === true && selectedState === 'W')
@@ -46,7 +46,8 @@ function MomentItem(props) {
                 setSelectedState('W')
 
                 // Add item to the corresponding list
-                props.dispatch(addPositiveItem(props.id))
+                props.dispatch(addNegativeItem(props.id))
+                props.dispatch(removePositiveItem(props.id))
             }
             else if (props.general.isPressR === true && selectedState === 'W') {
                 // Otherwise, set item background color to green (highlight) due to positive selection 
@@ -54,7 +55,8 @@ function MomentItem(props) {
                 setSelectedState('R')
 
                 // Add item to the corresponding list
-                props.dispatch(addNegativeItem(props.id))
+                props.dispatch(addPositiveItem(props.id))
+                props.dispatch(removeNegativeItem(props.id))
             }
         }
         else {

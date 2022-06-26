@@ -156,7 +156,7 @@ function ImageCard(props) {
                     <KeyOutlined key="key" onClick={onShowRankedListMoments} />,
                     // <SendOutlined key="send" onClick={onSubmitButtonClicked} />,
                     <UnorderedListOutlined key="images" onClick={onShowImagesButtonClicked} />,
-                    <PlayCircleOutlined key="play" onClick={onPlayButtonClicked} />
+                    // <PlayCircleOutlined key="play" onClick={onPlayButtonClicked} />
                 ]}
             >
                 {/* Show all the moments on a day */}

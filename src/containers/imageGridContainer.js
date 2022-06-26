@@ -44,7 +44,9 @@ function ImageGridContainer(props) {
 
     useEffect(() => {
         // Scroll to the top of the page after reset the visible list
-        window.scrollTo(0, 0)
+        if (props.query.isLoadingSearch) {
+            window.scrollTo(0, 0)
+        }
     }, [props.query.isLoadingSearch])
 
 

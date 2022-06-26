@@ -17,13 +17,28 @@ function StateTimeline(props) {
     const onTimelineItemClicked = (index) => {
         // Click on an item on the timeline
         const method = props.stateTimeline.states[index].method
-        
+
         if (method !== 'START') {
+            if (index === props.stateTimeline.statePointer.value) {
+                // Click on the same item
+                // Do nothing
+                if (props.visualSimilaritySources.visualSimilaritySourcesVisible) {
+                    // Hide the visual similarity search scrollable panel and show the search/filter/active search panel
+                    props.dispatch(setVisualSimilaritySourcesVisible(false))
+
+                    // Reset positive and negative items for visual similarity search and relevant feedback
+                    props.dispatch(setPositiveItems([]))
+                    props.dispatch(setNegativeItems([]))
+                }
+                return
+            }
+
+
             let params = {
                 state_id: props.stateTimeline.states[index].state,
             }
             props.dispatch(setIsLoadingSearch(true))
-            
+
             // Hide the visual similarity search scrollable panel
             props.dispatch(setVisualSimilaritySourcesVisible(false))
 
@@ -145,6 +160,7 @@ function StateTimeline(props) {
 
 const mapStatesToProps = (state) => ({
     query: state.query,
+    visualSimilaritySources: state.visualSimilaritySources,
     stateTimeline: state.stateTimeline,
 })
 

@@ -3,7 +3,7 @@ import { Button, notification, Popover } from "antd"
 import { connect } from "react-redux"
 import { VISUAL_SIMILARITY_SEARCH_API } from "../../constants/server"
 import { fetchData } from "../../actions/fetchData"
-import { setVisualSimilaritySources, setVisualSimilaritySourcesVisible } from "../../actions/actionVisualSimilaritySearch"
+import { setNegativeItems, setPositiveItems, setVisualSimilaritySources, setVisualSimilaritySourcesVisible } from "../../actions/actionVisualSimilaritySearch"
 import { RESPONSE_SUCCESS } from "../../constants/response"
 import { handleVisualSimilaritySearch } from "../../helpers/responseHelper"
 import { setIsLoadingSearch } from "../../actions/actionQueryData"
@@ -59,6 +59,9 @@ function VisualSimilaritySearchButton(props) {
         else {
             // Conduct normal relevant feedback mode
         }
+        // Reset positive and negative items for visual similarity search and relevant feedback
+        props.dispatch(setPositiveItems([]))
+        props.dispatch(setNegativeItems([]))
 
     }
 

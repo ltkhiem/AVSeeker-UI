@@ -1,5 +1,5 @@
 // import './App.css';
-import { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { Layout, Spin } from 'antd'
 import HeaderContainer from './containers/headerContainer'
 import ImageGridContainer from './containers/imageGridContainer';
@@ -10,6 +10,7 @@ import { setVideoModalVisible } from './actions/actionVideoViewer'
 import { setSessionId, setUserId } from './actions/actionUserConfig';
 import EventHandler from './components/eventHandler';
 import VisualSimilaritySearchContainer from './containers/visualSimilaritySearchContainer';
+import { SwipeableDrawer } from '@mui/material';
 
 
 const { Header, Content } = Layout;
@@ -102,19 +103,37 @@ function App(props) {
 									backgroundColor: "white"
 								}}
 							/> :
-							props.isLoadingSearch ?
-								<Spin
-									tip="Loading..."
-									size="large"
-									style={{
-										position: 'fixed',
-										right: "50%"
-									}}
-								/> :
+							// props.isLoadingSearch ?
+							// 	<Spin
+							// 		tip="Loading..."
+							// 		size="large"
+							// 		style={{
+							// 			position: 'fixed',
+							// 			right: "50%"
+							// 		}}
+								// /> :
 								<ImageGridContainer
 									style={{ height: "100%", backgroundColor: "white" }}
 								/>
 					}
+
+					{/* <VisualSimilaritySearchContainer /> */}
+
+					{/* Visual Similarity Drawer Panel */}
+					{/* <React.Fragment>
+						<SwipeableDrawer 
+							anchor="right"
+							open={props.visualSimilaritySources.visualSimilaritySourcesVisible}
+						>
+							<VisualSimilaritySearchContainer
+								style={{
+									height: "100%",
+									backgroundColor: "white"
+								}}
+							/>
+						</SwipeableDrawer>
+					</React.Fragment> */}
+
 					{/* Video Viewer */}
 					{
 						props.videoViewer.visible ?

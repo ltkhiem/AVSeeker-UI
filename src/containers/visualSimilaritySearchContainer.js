@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Grid } from '@mui/material'
 import { setIsLoadingSearch } from '../actions/actionQueryData'
-import { Spin } from 'antd'
+import { Spin, Modal } from 'antd'
 import MomentItem from '../components/imageGrid/momentItem';
 import moment from 'moment'
-import { setVisualSimilaritySourcesShowing } from '../actions/actionVisualSimilaritySearch';
+import { setVisualSimilaritySourcesShowing, setVisualSimilaritySourcesVisible } from '../actions/actionVisualSimilaritySearch';
 
 
 function VisualSimilaritySearchContainer(props) {
@@ -61,50 +61,50 @@ function VisualSimilaritySearchContainer(props) {
                             right: "50%"
                         }}
                     /> :
-                    <InfiniteScroll
-                        id={'vs-image-grid-container'}
-                        dataLength={currentLength}
-                        next={fetchData}
-                        hasMore={hasMore}
-                        scrollThreshold={0.9}
-                        loader={
-                            <h4 style={{ textAlign: "center", marginTop: 5 }}>Loading...</h4>}
-                        endMessage={
-                            <p style={{ textAlign: "center", marginTop: 5 }}>
-                                <b>Yay! You have seen it all</b>
-                            </p>
+                <InfiniteScroll
+                    id={'vs-image-grid-container'}
+                    dataLength={currentLength}
+                    next={fetchData}
+                    hasMore={hasMore}
+                    scrollThreshold={0.8}
+                    loader={
+                        <h4 style={{ textAlign: "center", marginTop: 5 }}>Loading...</h4>}
+                    endMessage={
+                        <p style={{ textAlign: "center", marginTop: 5 }}>
+                            <b>Yay! You have seen it all</b>
+                        </p>
+                    }
+                >
+                    <Grid container spacing={1} justifyContent="center">
+                        {
+                            props.visualSimilaritySources.vsImageSources.slice(0, currentLength).map((data, index) => {
+                                return (
+                                    <Grid item id={`col-${index}`} key={`col-${index}`}>
+                                        <MomentItem
+                                            style={{
+                                                height: 180,
+                                                width: 210,
+                                                border: "1px solid #e8e8e8",
+                                                paddingLeft: 5,
+                                                paddingRight: 5,
+                                                textAlign: "center",
+                                            }}
+                                            imageStyle={{
+                                                height: 150,
+                                                width: 200,
+                                            }}
+                                            imgSrc={data.path}
+                                            id={data.id}
+                                            title={moment(data.id, 'YYYYMMDD_hhmmss').format('LLL')}
+                                        />
+                                    </Grid>
+                                )
+                            })
                         }
-                    >
-                        <Grid container spacing={1} justifyContent="center">
-                            {
-                                props.visualSimilaritySources.vsImageSources.slice(0, currentLength).map((data, index) => {
-                                    return (
-                                        <Grid item id={`col-${index}`} key={`col-${index}`}>
-                                            <MomentItem
-                                                style={{
-                                                    height: 180,
-                                                    width: 210,
-                                                    border: "1px solid #e8e8e8",
-                                                    paddingLeft: 5,
-                                                    paddingRight: 5,
-                                                    textAlign: "center",
-                                                }}
-                                                imageStyle={{
-                                                    height: 150,
-                                                    width: 200,
-                                                }}
-                                                imgSrc={data.path}
-                                                id={data.id}
-                                                title={moment(data.id, 'YYYYMMDD_hhmmss').format('LLL')}
-                                            />
-                                        </Grid>
-                                    )
-                                })
-                            }
-                        </Grid>
-                    </InfiniteScroll>
+                    </Grid>
+                </InfiniteScroll>
             }
-        </div >
+        </div>
     )
 }
 
