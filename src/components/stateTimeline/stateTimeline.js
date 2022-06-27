@@ -134,7 +134,8 @@ function StateTimeline(props) {
                     foreground: "#1A79AD",
                     outline: "#dfdfdf",
                 }}
-
+                minEventPadding={60}
+                maxEventPadding={120}
                 index={props.stateTimeline.statePointer.value}
                 labelWidth={100}
                 getLabel={
