@@ -7,13 +7,43 @@ import { setNegativeItems, setPositiveItems, setVisualSimilaritySources, setVisu
 import { RESPONSE_SUCCESS } from "../../constants/response"
 import { handleVisualSimilaritySearch } from "../../helpers/responseHelper"
 import { setIsLoadingSearch } from "../../actions/actionQueryData"
+import { RELEVANCE_FEEDBACK_API } from "../../constants/server"
 
 
 function VisualSimilaritySearchButton(props) {
 
+
+    const doRelevanceFeedback = () => {
+        // Set loading spinner
+        props.dispatch(setIsLoadingSearch(true))
+
+        const params = {
+            user_id: props.userConfig.userId,
+            positive_ids: props.visualSimilarityQuery.positiveItems,
+            negative_ids: props.visualSimilarityQuery.negativeItems,
+        }
+        props.dispatch(fetchData(RELEVANCE_FEEDBACK_API, 'POST', params)).then((response) => {
+            if (response.result !== RESPONSE_SUCCESS) {
+                notification.error({
+                    message: `Relevance Feedback: ${response.result}`,
+                    placement: 'bottomRight',
+                })
+            }
+            else {
+                const data = handleVisualSimilaritySearch(response.reply)
+                props.dispatch(setVisualSimilaritySources(data))
+                props.dispatch(setVisualSimilaritySourcesVisible(true))
+
+                // Unset loading spinner
+                props.dispatch(setIsLoadingSearch(false))
+            }
+        })
+    }
+
     const doSimilaritySearch = () => {
         const positiveItemsLength = props.visualSimilarityQuery.positiveItems.length
         const negativeItemsLength = props.visualSimilarityQuery.negativeItems.length
+
         if (positiveItemsLength === 0) {
             if (negativeItemsLength === 0) {
                 // No positive items were selected
@@ -29,8 +59,8 @@ function VisualSimilaritySearchButton(props) {
         else if (positiveItemsLength === 1) {
             if (negativeItemsLength === 0) {
                 // Visual Similarity Search
-                
-                // Show spinner
+
+                // Set loading spinner
                 props.dispatch(setIsLoadingSearch(true))
 
                 const params = {
@@ -49,15 +79,18 @@ function VisualSimilaritySearchButton(props) {
                         props.dispatch(setVisualSimilaritySources(data))
                         props.dispatch(setVisualSimilaritySourcesVisible(true))
                     }
+                    // Unset loading spinner
                     props.dispatch(setIsLoadingSearch(false))
                 })
             }
             else {
                 // Conduct normal relevant feedback mode
+                doRelevanceFeedback()
             }
         }
         else {
             // Conduct normal relevant feedback mode
+            doRelevanceFeedback()
         }
         // Reset positive and negative items for visual similarity search and relevant feedback
         props.dispatch(setPositiveItems([]))

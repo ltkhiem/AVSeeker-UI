@@ -72,7 +72,7 @@ function HeaderContainer(props) {
                 </Col>
 
                 {/* Active Search */}
-                <Col flex="420px">
+                <Col flex="420px" align="baseline">
                     <InteractiveQuestionnairContainer />
                 </Col>
 

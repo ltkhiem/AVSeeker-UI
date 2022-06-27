@@ -112,9 +112,12 @@ function StateTimeline(props) {
                 query: '',
             }]
             props.dispatch(setStateTimeline(newState))
+
             // Update ranked list data
             const rankedList = []
             props.dispatch(setImageSources(rankedList))
+            props.dispatch(setIsLoadingSearch(false))
+
             // Reset question in active search
             props.dispatch(setInteractiveQuestion(""))
         }
@@ -134,8 +137,8 @@ function StateTimeline(props) {
                     foreground: "#1A79AD",
                     outline: "#dfdfdf",
                 }}
-                minEventPadding={60}
-                maxEventPadding={120}
+                minEventPadding={100}
+                maxEventPadding={200}
                 index={props.stateTimeline.statePointer.value}
                 labelWidth={100}
                 getLabel={
