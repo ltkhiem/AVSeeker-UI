@@ -81,7 +81,7 @@ function ImageGridContainer(props) {
                                                 scrollContainer={"image-grid-container"}
                                                 overflow
                                                 key={`image-card-${index}`}
-                                                sources={data.frames.slice(0, 3)}
+                                                sources={data.frames}
                                                 videoId={data.id}
                                                 videoSrc={data.video}
                                             />

@@ -17,7 +17,7 @@ export const handleRankedListResponse = (rankedList) => {
     return rankedList.map((item) => {
         return {
             id: item.shot_id,
-            video: `${VIDEO_SERVER}/${item.dataset}/videos/${item.shot_id}/${item.shot_id}.mp4`,
+            video: `${VIDEO_SERVER}/${item.shot_id}.mp4`,
             frames: item.keyframe_list.map((frame) => `${IMAGE_SERVER}/${item.shot_id}/${frame}.${IMAGE_EXTENSION}`),
         }
     })
