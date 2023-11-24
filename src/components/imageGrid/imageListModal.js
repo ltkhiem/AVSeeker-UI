@@ -11,7 +11,7 @@ function ImageListModal(props) {
     return (
         <Modal
             centered
-            width={920}
+            width={1500}
             title={props.title}
             visible={props.visible}
             onCancel={props.onCancel}
@@ -19,7 +19,7 @@ function ImageListModal(props) {
             okText="Submit All"
             cancelText={"Close"}
         >
-            <ImageList cols={5} sx={{ width: 850, height: 450, paddingLeft: 2, paddingRight: 2 }}>
+            <ImageList cols={5} sx={{ width: 1450, height: 800, paddingLeft: 2, paddingRight: 2 }}>
                 {
                     props.moments.map((data, index) => {
                         return (
@@ -28,13 +28,13 @@ function ImageListModal(props) {
                             >
                                 <MomentItem
                                     style={{
-                                        width: 155,
-                                        height: 155,
+                                        width: 224,
+                                        height: 135,
                                         padding: 5,
                                     }}
                                     imageStyle={{
-                                        width: 145,
-                                        height: 145,
+                                        width: 224,
+                                        height: 135,
                                     }}
                                     imgSrc={data.path}
                                     id={data.id}

@@ -85,7 +85,7 @@ function ImageCard(props) {
 
     return (
         <LazyLoad
-            height={250}
+            height={500}
             once
             overflow={true}
             offset={1000}
@@ -94,20 +94,20 @@ function ImageCard(props) {
         >
             <Card
                 bordered
-                style={{ width: 220, height: "100%" }}
+                style={{ width: 500, height: "100%" }}
                 cover={
-                    <div style={{ height: 200, width: "100%", textAlign: "center" }}>
+                    <div style={{ height: 425, width: "100%", textAlign: "center" }}>
                         <Text strong>{props.clusterId}</Text>
                         <MomentItem
                             style={{
-                                width: 220,
+                                width: 500,
                                 border: "1px solid #e8e8e8",
                                 paddingLeft: 5,
                                 paddingRight: 5,
                                 paddingBottom: 5,
                                 textAlign: "center",
                             }}
-                            imageStyle={{ width: 200, height: 100, transform: "scale(1)" }}
+                            imageStyle={{ width: 480, height: 270, transform: "scale(2)" }}
                             imgSrc={props.sources[0].path}
                             id={props.sources[0].id}
                             title={moment(props.sources[0].id, 'YYYYMMDD_hhmmss').format('LTS')} // Only get the time
@@ -115,17 +115,17 @@ function ImageCard(props) {
                         <Space size={0}>
                             <MomentItem
                                 style={{
-                                    width: 110,
+                                    width: 245,
                                     border: "1px solid #e8e8e8",
-                                    paddingLeft: 5,
+                                    paddingLeft: 0,
                                     paddingRight: 5,
                                     paddingBottom: 5,
                                     textAlign: "center"
                                 }}
                                 imageStyle={{
-                                    height: 70,
-                                    width: 100,
-                                    transform: "scale(1)",
+                                    height: 126,
+                                    width: 224,
+                                    transform: "scale(4)",
                                 }}
                                 imgSrc={props.sources[1] !== undefined ? props.sources[1].path : ERROR_IMAGE}
                                 id={props.sources[1] !== undefined ? props.sources[1].id : ''}
@@ -133,17 +133,17 @@ function ImageCard(props) {
                             />
                             <MomentItem
                                 style={{
-                                    width: 110,
+                                    width: 245,
                                     border: "1px solid #e8e8e8",
                                     paddingLeft: 5,
-                                    paddingRight: 5,
+                                    paddingRight: 0,
                                     paddingBottom: 5,
                                     textAlign: "center"
                                 }}
                                 imageStyle={{
-                                    height: 70,
-                                    width: 100,
-                                    transform: "scale(1)",
+                                    height: 126,
+                                    width: 224,
+                                    transform: "scale(4)",
                                 }}
                                 imgSrc={props.sources[2] !== undefined ? props.sources[2].path : ERROR_IMAGE}
                                 id={props.sources[2] !== undefined ? props.sources[2].id : ''}

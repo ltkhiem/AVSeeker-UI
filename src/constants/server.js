@@ -1,7 +1,7 @@
-export const IMAGE_SERVER = "http://thevncore-lab.mooo.com:20570"
+export const IMAGE_SERVER = "http://localhost:20570"
 export const VIDEO_SERVER = "http://thevncore-lab.mooo.com:20588"
 
-export const MAIN_SERVER = "http://thevncore-lab.mooo.com:20501"
+export const MAIN_SERVER = "http://localhost:20501"
 export const LOAD_STATE_TIMELINE_RESULT_API = `${MAIN_SERVER}/api/load_ranked_list`
 export const FILTER_API = `${MAIN_SERVER}/api/filter`
 export const SEARCH_API = `${MAIN_SERVER}/api/search`
