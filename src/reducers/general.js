@@ -34,8 +34,10 @@ const generalReducer = (state = initialState, action) => {
                 ...state,
                 isPressT: action.isPressT,
             }
-        default: return state
+        // ... other cases
+        default:
+            return state;
     }
-}
+};
 
 export default generalReducer

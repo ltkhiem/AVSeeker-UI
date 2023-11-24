@@ -11,8 +11,10 @@ import allDayMomentsModalReducer from "./allDayMomentsModal";
 import momentsRankedListReducer from "./momentsRankedListReducer";
 import visualSimilaritySourcesReducer from "./visualSimilaritySources";
 import visualSimilarityQueryReducer from "./visualSimilarityQuery";
+import showGazeReducer from "./showGaze";
 import momentTimelineReducer from "./momentTimelineReducer";
 import generalReducer from "./general";
+import triggerSearchReducer from "./triggerSearch";
 
 
 export default configureStore({
@@ -27,6 +29,8 @@ export default configureStore({
         allDayMomentsModal: allDayMomentsModalReducer,
         momentsRankedList: momentsRankedListReducer,
         visualSimilaritySources: visualSimilaritySourcesReducer,
+        showGaze: showGazeReducer,
+        triggerSearch: triggerSearchReducer,
         general: generalReducer,
         momentTimeline: momentTimelineReducer,
     },

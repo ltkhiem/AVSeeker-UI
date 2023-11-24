@@ -1,54 +1,56 @@
 import { SendOutlined } from "@ant-design/icons"
 import { Button, Popover, notification } from "antd"
 import { connect } from 'react-redux'
-import { DRES_SUBMIT_API } from '../../constants/server'
-import { DRES_ERROR_RESPONSE, DRES_INCORRECT_SUBMISSION } from '../../constants/response'
+import { UPDATE_DISPLAY_API } from '../../constants/server'
+import { RESPONSE_SUCCESS } from "../../constants/response"
 import { fetchData } from '../../actions/fetchData'
+import { setShowGaze } from '../../actions/actionShowGaze';
+
+import { setTriggerSearch } from '../../actions/actionTriggerSearch';
 
 
-function SubmitSelectedItemsButton(props) {
 
-    const submitSelectedItems = () => {
-        let selectedItems = []
-        if (props.visualSimilaritySources.visualSimilaritySourcesVisible) {
-            const MAX_NUMBER_OF_ITEMS = 150
-            selectedItems = props.visualSimilaritySources.vsImageSources.map(item => item.id).slice(0, MAX_NUMBER_OF_ITEMS)
-        }
-        else {
-            selectedItems = props.visualSimilarityQuery.positiveItems
-        }
-        const totalItems = selectedItems.length
-        selectedItems.forEach(item => {
-            const submitURL = `${DRES_SUBMIT_API}?item=${item}&session=${props.userConfig.sessionId}`
-            props.dispatch(fetchData(submitURL, 'GET', {})).then((response) => {
-                if (response !== undefined && response.status !== DRES_ERROR_RESPONSE) {
-                    const { status, description, submission } = response
-                    if (submission !== DRES_INCORRECT_SUBMISSION) {
-                        // Submit successfully
-                    }
-                }
-            })
-        })
-        notification.success({
-            message: `Submit ${totalItems} items`,
-            placement: 'bottomRight',
-        })
+function ShowGazeItemsButton(props) {
+
+    const onShowGazeClick = () => {
+	    const params = {
+		show_gaze: !props.showGaze.showGaze
+	    }
+
+	    props.dispatch(fetchData(UPDATE_DISPLAY_API, 'POST', params)).then((response) => {
+		if (response.result !== RESPONSE_SUCCESS) {
+			notification.error({
+				message: `Failed to update display preference`,
+				placement: 'bottomRight',
+			})
+		}
+		else {
+	    		props.dispatch(setShowGaze(!props.showGaze.showGaze))
+        		notification.success({
+        		    message: `Display preference updated`,
+        		    placement: 'bottomRight',
+        		})
+			props.dispatch(setTriggerSearch(true));
+
+    
+		}
+	    })
+
+
+
     }
 
     const popOverHelper = () => {
         return (
             <div>
-                <b>Search/Filter/Active Search Mode</b>
-                <p>- Submit selected items (colored green) to the server.</p>
-                <b>Visual Similarity Search Mode</b>
-                <p>- Submit first 80 items in the scrollable panel.</p>
+                <p>Update Display Preference</p>
             </div>
         )
     }
 
     return (
         <Popover
-            title="Submit Selected Items"
+            title="Update Display Preference"
             content={popOverHelper}
             placement="bottomRight"
         >
@@ -60,7 +62,7 @@ function SubmitSelectedItemsButton(props) {
                     color: "white",
                     border: "none",
                 }}
-                onClick={() => { submitSelectedItems() }}
+                onClick={() => {onShowGazeClick() }}
             />
         </Popover>
     )
@@ -68,9 +70,7 @@ function SubmitSelectedItemsButton(props) {
 
 
 const mapStatesToProps = (state) => ({
-    visualSimilarityQuery: state.visualSimilarityQuery,
-    userConfig: state.userConfig,
-    visualSimilaritySources: state.visualSimilaritySources
+    showGaze: state.showGaze,
 })
 
-export default connect(mapStatesToProps)(SubmitSelectedItemsButton)
+export default connect(mapStatesToProps)(ShowGazeItemsButton)

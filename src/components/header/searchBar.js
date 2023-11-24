@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { AutoComplete, Input, notification } from 'antd';
 import { fetchData } from '../../actions/fetchData';
 import { connect } from 'react-redux'
@@ -12,6 +12,8 @@ import { setPositiveItems, setNegativeItems } from '../../actions/actionVisualSi
 import { setVisualSimilaritySourcesVisible } from '../../actions/actionVisualSimilaritySearch';
 
 
+import { setTriggerSearch } from '../../actions/actionTriggerSearch';
+
 const mockVal = (str, repeat = 1) => ({
     value: str.repeat(repeat),
 });
@@ -19,6 +21,7 @@ const mockVal = (str, repeat = 1) => ({
 
 function SearchBar(props) {
     const searchRef = useRef(null);
+    const firstUpdate = useRef(true);
     const [value, setValue] = useState('')
     const [options, setOptions] = useState([])
 
@@ -111,6 +114,17 @@ function SearchBar(props) {
     }
 
 
+    useEffect(() => {
+	if (firstUpdate.current) {
+	     firstUpdate.current = false;
+	} else {
+	     if (props.triggerSearch.triggerSearch) {
+		onSearchClick();
+	     }
+	}
+    }, [props.triggerSearch])
+
+
     const onSelect = (data) => {
         console.log('onSelect', data)
     }
@@ -141,6 +155,7 @@ const mapStatesToProps = (state) => ({
     stateTimeline: state.stateTimeline,
     query: state.query,
     userConfig: state.userConfig,
+    triggerSearch: state.triggerSearch,
 })
 
 export default connect(mapStatesToProps)(SearchBar);

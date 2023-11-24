@@ -12,7 +12,6 @@ import { RELEVANCE_FEEDBACK_API } from "../../constants/server"
 
 function VisualSimilaritySearchButton(props) {
 
-
     const doRelevanceFeedback = () => {
         // Set loading spinner
         props.dispatch(setIsLoadingSearch(true))

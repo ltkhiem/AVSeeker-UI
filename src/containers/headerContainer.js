@@ -12,6 +12,7 @@ import { SettingOutlined } from '@ant-design/icons';
 import PopOverHelper from '../components/header/popOverHelper';
 import VisualSimilaritySearchButton from '../components/header/visualSimilaritySearchButton';
 import SubmitSelectedItemsButton from '../components/header/submitSelectedItemsButton';
+import ShowGazeItemsButton from '../components/header/showGazeData';
 
 
 function HeaderContainer(props) {
@@ -77,10 +78,14 @@ function HeaderContainer(props) {
                 </Col>
 
                 {/* Setting & Utilities */}
-                <Col flex="200px">
-                    <Space wrap={true} align="baseline" size={4}>
+                <Col flex="250px">
+                    <Space wrap={true} align="baseline" size={5}>
                         {/* Submit Selected Items Button */}
                         <SubmitSelectedItemsButton />
+
+
+                        {/* Submit Selected Items Button */}
+                        <ShowGazeItemsButton />
 
                         {/* Visual Similarity Search Button */}
                         <VisualSimilaritySearchButton />
