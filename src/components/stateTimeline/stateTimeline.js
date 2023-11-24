@@ -6,7 +6,6 @@ import { LOAD_STATE_TIMELINE_RESULT_API, INTERACTIVE_QUESTION_API } from '../../
 import { RESPONSE_SUCCESS, NO_QUESTION_RESPONSE } from '../../constants/response';
 import { fetchData } from '../../actions/fetchData';
 import { handleRankedListResponse } from '../../helpers/responseHelper';
-import { setInteractiveQuestion } from '../../actions/actionInteractiveQuestion';
 import { setIsLoadingSearch } from '../../actions/actionQueryData';
 import { setNegativeItems, setPositiveItems, setVisualSimilaritySourcesVisible } from '../../actions/actionVisualSimilaritySearch';
 
@@ -70,24 +69,24 @@ function StateTimeline(props) {
                 }))
 
             })
-            // Load corresponding question
-            props.dispatch(fetchData(INTERACTIVE_QUESTION_API, 'POST', params)).then((response) => {
-                if (response.result !== RESPONSE_SUCCESS) {
-                    notification.error({
-                        message: `Interactive Question: ${response.result}`,
-                        placement: 'bottomRight',
-                    })
-                    return
-                }
-                const data = response.reply
-                if (data.question === NO_QUESTION_RESPONSE) {
-                    props.dispatch(setInteractiveQuestion(""))
-                }
-                else {
-                    const newQuestion = data.question.split('/').pop()
-                    props.dispatch(setInteractiveQuestion(newQuestion))
-                }
-            })
+            // // Load corresponding question
+            // props.dispatch(fetchData(INTERACTIVE_QUESTION_API, 'POST', params)).then((response) => {
+            //     if (response.result !== RESPONSE_SUCCESS) {
+            //         notification.error({
+            //             message: `Interactive Question: ${response.result}`,
+            //             placement: 'bottomRight',
+            //         })
+            //         return
+            //     }
+            //     const data = response.reply
+            //     if (data.question === NO_QUESTION_RESPONSE) {
+            //         props.dispatch(setInteractiveQuestion(""))
+            //     }
+            //     else {
+            //         const newQuestion = data.question.split('/').pop()
+            //         props.dispatch(setInteractiveQuestion(newQuestion))
+            //     }
+            // })
         }
         else {
             props.dispatch(setIsLoadingSearch(true))
@@ -118,8 +117,8 @@ function StateTimeline(props) {
             props.dispatch(setImageSources(rankedList))
             props.dispatch(setIsLoadingSearch(false))
 
-            // Reset question in active search
-            props.dispatch(setInteractiveQuestion(""))
+            // // Reset question in active search
+            // props.dispatch(setInteractiveQuestion(""))
         }
     }
 

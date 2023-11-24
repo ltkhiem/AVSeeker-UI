@@ -7,7 +7,6 @@ import { NO_QUESTION_RESPONSE, RESPONSE_SUCCESS } from '../../constants/response
 import { handleRankedListResponse, handleStateTimelineResponse } from '../../helpers/responseHelper';
 import { setImageSources, setStatePointer, addStateTimelineData, setStateTimeline } from '../../actions/actionFetchDataSources';
 import { setIsLoadingSearch, setQueryData } from '../../actions/actionQueryData';
-import { setInteractiveQuestion } from '../../actions/actionInteractiveQuestion';
 import { setNegativeItems, setPositiveItems } from '../../actions/actionVisualSimilaritySearch';
 import { setVisualSimilaritySourcesVisible } from '../../actions/actionVisualSimilaritySearch';
 
@@ -95,28 +94,6 @@ function FilterBar(props) {
             const rankedList = handleRankedListResponse(data.ranked_list)
             props.dispatch(setImageSources(rankedList))
             props.dispatch(setIsLoadingSearch(false))
-
-            // Get new question
-            const params = {
-                state_id: data.state_id,
-            }
-            props.dispatch(fetchData(INTERACTIVE_QUESTION_API, 'POST', params)).then((response) => {
-                if (response.result !== RESPONSE_SUCCESS) {
-                    notification.error({
-                        message: `Interactive Question: ${response.result}`,
-                        placement: 'bottomRight',
-                    })
-                    return
-                }
-                const data = response.reply
-                if (data.question === NO_QUESTION_RESPONSE) {
-                    props.dispatch(setInteractiveQuestion(""))
-                }
-                else {
-                    const newQuestion = data.question.split('/').pop()
-                    props.dispatch(setInteractiveQuestion(newQuestion))
-                }
-            })
         })
 
     }

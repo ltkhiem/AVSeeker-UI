@@ -11,6 +11,7 @@ export const VISUAL_SIMILARITY_SEARCH_API = `${MAIN_SERVER}/api/visual_similar_s
 export const GET_TEMPORAL_IMAGES_API = `${MAIN_SERVER}/api/get_temporal_images`
 export const RELEVANCE_FEEDBACK_API = `${MAIN_SERVER}/api/relevance_feedback`
 export const UPDATE_DISPLAY_API = `${MAIN_SERVER}/api/update_display_pref`
+export const COMPREHENSION_FILTER_API = `${MAIN_SERVER}/api/filter_by_comprehension`
 
 export const DRES_SERVER = "https://vbs.videobrowsing.org/api/v1"
 export const DRES_LOGIN_API = `${DRES_SERVER}/login`

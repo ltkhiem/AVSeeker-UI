@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FilterBar from '../components/header/filterBar';
 import SearchBar from '../components/header/searchBar'
 import { Row, Col, Space, notification, Button } from 'antd'
-import InteractiveQuestionnairContainer from './interactiveQuestionnaireContainer';
+import ComprehensionFilterContainer from './comprehensionFilterContainer';
 import ConfigModal from '../components/header/configModal';
 import { fetchData } from '../actions/fetchData';
 import { DRES_LOGIN_API } from '../constants/server';
@@ -73,8 +73,8 @@ function HeaderContainer(props) {
                 </Col>
 
                 {/* Active Search */}
-                <Col flex="420px" align="baseline">
-                    <InteractiveQuestionnairContainer />
+                <Col flex="500px" align="baseline">
+                    <ComprehensionFilterContainer />
                 </Col>
 
                 {/* Setting & Utilities */}

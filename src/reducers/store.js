@@ -5,7 +5,7 @@ import imageSourcesReducer from "./imageSources";
 import stateTimelineReducer from "./stateTimeline";
 import queryReducer from "./query";
 import videoViewerReducer from "./videoViewer"
-import interactiveQuestionReducer from "./interactiveQuestion";
+import comprehensionFilterReducer from "./comprehensionFilter"
 import userConfigReducer from "./userConfig";
 import allDayMomentsModalReducer from "./allDayMomentsModal";
 import momentsRankedListReducer from "./momentsRankedListReducer";
@@ -24,7 +24,7 @@ export default configureStore({
         visualSimilarityQuery: visualSimilarityQueryReducer,
         stateTimeline: stateTimelineReducer,
         videoViewer: videoViewerReducer,
-        interactiveQuestion: interactiveQuestionReducer,
+	comprehensionFilter: comprehensionFilterReducer,
         userConfig: userConfigReducer,
         allDayMomentsModal: allDayMomentsModalReducer,
         momentsRankedList: momentsRankedListReducer,

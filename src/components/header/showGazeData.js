@@ -1,4 +1,4 @@
-import { SendOutlined } from "@ant-design/icons"
+import { EyeOutlined } from "@ant-design/icons"
 import { Button, Popover, notification } from "antd"
 import { connect } from 'react-redux'
 import { UPDATE_DISPLAY_API } from '../../constants/server'
@@ -43,7 +43,7 @@ function ShowGazeItemsButton(props) {
     const popOverHelper = () => {
         return (
             <div>
-                <p>Update Display Preference</p>
+                <p>Display screenshots with gaze data visualisation</p>
             </div>
         )
     }
@@ -56,7 +56,7 @@ function ShowGazeItemsButton(props) {
         >
             <Button
                 type="ghost"
-                icon={<SendOutlined />}
+                icon={<EyeOutlined />}
                 style={{
                     height: 30,
                     color: "white",

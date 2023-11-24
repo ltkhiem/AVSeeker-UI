@@ -1,4 +1,4 @@
-import { EyeOutlined } from "@ant-design/icons"
+import { ReloadOutlined } from "@ant-design/icons"
 import { Button, notification, Popover } from "antd"
 import { connect } from "react-redux"
 import { VISUAL_SIMILARITY_SEARCH_API } from "../../constants/server"
@@ -15,7 +15,6 @@ function VisualSimilaritySearchButton(props) {
     const doRelevanceFeedback = () => {
         // Set loading spinner
         props.dispatch(setIsLoadingSearch(true))
-
         const params = {
             user_id: props.userConfig.userId,
             positive_ids: props.visualSimilarityQuery.positiveItems,
@@ -105,7 +104,7 @@ function VisualSimilaritySearchButton(props) {
         >
             <Button
                 type="ghost"
-                icon={<EyeOutlined />}
+                icon={<ReloadOutlined />}
                 style={{
                     height: 30,
                     color: "white",
